@@ -72,6 +72,27 @@ router.post("/create", async (req, res) => {
   });
 });
 
+router.post("/find", async (req, res) => {
+  try {
+    const userResult = await user.findOne({
+      where: {
+        user_id: req.body.user_id,
+      },
+      raw: true,
+    });
+    res.status(200).json({
+      status: "success",
+      data: {
+        confirmed: userResult.confirmed,
+      },
+    });
+  } catch (err) {
+    // console.log(req.body);
+    console.log(err);
+    // console.log("THERE IS AN ERROR!");
+  }
+});
+
 router.post("/login", (req, res, next) => {
   passport.authenticate("local", (err, user, info) => {
     // console.log(info);
