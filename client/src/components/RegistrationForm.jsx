@@ -42,7 +42,6 @@ const RegistrationForm = () => {
       }}
       validationSchema={schema}
       onSubmit={async (data, { setErrors }) => {
-        console.log(data);
         try {
           const response = await UserAPI.post("/create", {
             password: data.password,
@@ -57,8 +56,9 @@ const RegistrationForm = () => {
             cell: data.cell,
             website: data.website,
           });
-          console.log(response);
-          console.log(data);
+          console.log(response.data.status[0].message);
+          setErrors({ email: response.data.status[0].message });
+          //   console.log(data);
         } catch (err) {
           console.log(err);
         }
