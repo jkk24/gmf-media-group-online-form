@@ -2,12 +2,24 @@ const express = require("express");
 const router = express.Router();
 const { user } = require("../db/models");
 const passport = require("passport");
+const bcrypt = require("bcrypt");
+const nodemailer = require("nodemailer");
+
+// gmail transporter
+const transporter = nodemailer.createTransport({
+  service: "gmail",
+  auth: {
+    user: "healthy.you.511@gmail.com",
+    pass: "qJsRjjg(u&4g$A",
+  },
+});
 
 router.get("/", (req, res) => {
   res.send("Hello World!");
 });
 
 router.post("/create", async (req, res) => {
+  const base = "http://localhost:3000/confirmEmail/";
   const {
     email,
     password,
@@ -22,20 +34,41 @@ router.post("/create", async (req, res) => {
     website,
   } = req.body;
   bcrypt.hash(password, 10).then((hash) => {
-    user.create({
-      email,
-      password: hash,
-      company,
-      address,
-      city,
-      state,
-      zip,
-      phone,
-      fax,
-      cell,
-      website,
-    });
-    res.json("success");
+    user
+      .create({
+        email,
+        password: hash,
+        company,
+        address,
+        city,
+        state,
+        zip,
+        phone,
+        fax,
+        cell,
+        website,
+      })
+      .then((result) => {
+        res.json({
+          status: "success",
+        });
+        console.log(result.dataValues.email);
+        const mailOptions = {
+          from: '"GMF Media Group" <healthy.you.511@gmail.com>', // sender address
+          to: result.dataValues.email,
+          subject: "Please Confirm Your Email!", // Subject line
+          text: `Click this link to confirm your email and get started!: <a href="${base}${result.dataValues.user_id}"> Confirm your email! </a>`, // plain text body
+          html: `Click this link to confirm your email and get started!: <a href="${base}${result.dataValues.user_id}"> Confirm your email! </a>`,
+        };
+        // send mail with defined transport object
+        const info = transporter.sendMail(mailOptions);
+      })
+      .catch((err) => {
+        console.log(err);
+        res.json({
+          status: err.errors,
+        });
+      });
   });
 });
 
