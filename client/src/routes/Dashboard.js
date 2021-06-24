@@ -8,7 +8,7 @@ import { AuthContext } from "../context/AuthContext";
 
 const Dashboard = () => {
   const { role } = useContext(AuthContext);
-  return role === "Placeholder" ? (
+  return role === "holder" ? (
     <Container>
       <h1>Admin Dashboard</h1>
       <div>

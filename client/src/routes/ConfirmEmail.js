@@ -1,27 +1,46 @@
-import React, { useEffect } from "react";
-// import UserAPI from "../apis/UserAPI";
+import React, { useEffect, useState } from "react";
+import UserAPI from "../apis/UserAPI";
 import { useParams, Redirect } from "react-router-dom";
 
-const ConfirmEmail = (props) => {
-  //let { userID } = useParams();
+const ConfirmEmail = () => {
+  const { userID } = useParams();
+  const [confirmed, setConfirmed] = useState(null);
   useEffect(() => {
-    // Define a function fetchData that calls APIs which is then called in useEffect
-    // const fetchData = async () => {
-    //   console.log(userID);
-    //   //   try {
-    //   //     const response = await UserAPI.post("/find", {
-    //   //       user_id: ID,
-    //   //     });
-    //   //     console.log(response);
-    //   //   } catch (err) {
-    //   //     console.log(err);
-    //   //   }
-    // };
-    // fetchData();
-    alert("Email confirmed! Please log in now.");
-  }, []);
+    const fetchData = async () => {
+      try {
+        const response = await UserAPI.post("/checkConfirmation", {
+          user_id: userID,
+        });
+        console.log(response.data.confirmed);
+        if (response.data.confirmed === "false") {
+          const confirmationResponse = await UserAPI.post("/confirmEmail", {
+            user_id: userID,
+          });
+          if (confirmationResponse.data.status === "success") {
+            setConfirmed(true);
+            alert("Email confirmed! Please log in.");
+          } else {
+            alert("An error occurred");
+          }
+        } else {
+          setConfirmed(true);
+          alert("Email already confirmed! Please log in.");
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    fetchData();
+  }, [userID]);
 
-  return <Redirect to="/login" />;
+  // return <Redirect to="/login" />;
+  return confirmed === true ? (
+    <Redirect to="/login" />
+  ) : (
+    <div>
+      <h1>Loading...</h1>
+    </div>
+  );
 };
 
 export default ConfirmEmail;

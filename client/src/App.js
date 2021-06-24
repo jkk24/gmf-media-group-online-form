@@ -23,13 +23,11 @@ function App() {
           setLoggedIn(true);
           setId(response.data.user_id);
           setRole("Placeholder");
-          console.log(response.data);
         } else {
           setLoggedIn(false);
           setRole("None");
           setId(null);
         }
-        console.log(loggedIn);
       } catch (err) {
         console.log(err);
       }
@@ -56,7 +54,7 @@ function App() {
         <Route path="/login" component={Login} />
         <Route exact path="/" component={Home} />
         <ProtectedRoute path="/dashboard" component={Dashboard} />
-        <Route path="/confirmEmail/:id" component={ConfirmEmail} />
+        <Route path="/confirmEmail/:userID" component={ConfirmEmail} />
       </Switch>
     </div>
   );

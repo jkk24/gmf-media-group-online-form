@@ -72,7 +72,7 @@ router.post("/create", async (req, res) => {
   });
 });
 
-router.post("/find", async (req, res) => {
+router.post("/checkConfirmation", async (req, res) => {
   try {
     const userResult = await user.findOne({
       where: {
@@ -82,9 +82,23 @@ router.post("/find", async (req, res) => {
     });
     res.status(200).json({
       status: "success",
-      data: {
-        confirmed: userResult.confirmed,
-      },
+      confirmed: userResult.confirmed,
+    });
+  } catch (err) {
+    // console.log(req.body);
+    console.log(err);
+    // console.log("THERE IS AN ERROR!");
+  }
+});
+
+router.post("/confirmEmail", async (req, res) => {
+  try {
+    const userResult = await user.update(
+      { confirmed: "true" },
+      { where: { user_id: req.body.user_id }, raw: true }
+    );
+    res.status(200).json({
+      status: "success",
     });
   } catch (err) {
     // console.log(req.body);
