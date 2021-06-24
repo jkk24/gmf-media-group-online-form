@@ -7,16 +7,14 @@ const PendingOrders = () => {
       <Table striped bordered hover>
         <thead>
           <tr>
-            <th>Approve</th>
-            <th>Status</th>
-            <th>Email</th>
-            <th>Name</th>
-            <th>Overall Rating</th>
-            <th>Bedside Manner</th>
-            <th>Wait Time</th>
-            <th>Availability</th>
-            <th>Review</th>
-            <th>Publication Date</th>
+            <th>Order Number</th>
+            <th>Date Created</th>
+            <th>Order Total</th>
+            <th>Download Form</th>
+            <th>Upload Signed Form</th>
+            <th>Form Status</th>
+            <th>Payment Status</th>
+            <th>Order Status</th>
           </tr>
         </thead>
       </Table>
