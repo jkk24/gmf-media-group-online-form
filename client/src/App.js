@@ -4,12 +4,13 @@ import Register from "./routes/Register";
 import Login from "./routes/Login";
 import Home from "./routes/Home";
 import Dashboard from "./routes/Dashboard";
+import ProtectedRoute from "./components/ProtectedRoute";
 import UserAPI from "./apis/UserAPI";
 import { AuthContext } from "./context/AuthContext";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 function App() {
-  const { setLoggedIn, setRole, setId } = useContext(AuthContext);
+  const { loggedIn, setLoggedIn, setRole, setId } = useContext(AuthContext);
 
   useEffect(() => {
     // Define a function fetchData that calls APIs which is then called in useEffect
@@ -23,14 +24,17 @@ function App() {
           setRole("Placeholder");
           console.log(response.data);
         } else {
-          console.log("You are not logged in!");
+          setLoggedIn(false);
+          setRole("None");
+          setId(null);
         }
+        console.log(loggedIn);
       } catch (err) {
         console.log(err);
       }
     };
     fetchData();
-  }, [setLoggedIn, setRole, setId]);
+  }, [loggedIn, setLoggedIn, setRole, setId]);
 
   // Temp Logout Button
   const handleSubmit = async (e) => {
@@ -38,6 +42,7 @@ function App() {
     try {
       const response = await UserAPI.get("/logout");
       console.log(response.data);
+      setLoggedIn(false);
     } catch (err) {
       console.log(err);
     }
@@ -49,7 +54,7 @@ function App() {
         <Route path="/register" component={Register} />
         <Route path="/login" component={Login} />
         <Route exact path="/" component={Home} />
-        <Route path="/dashboard" component={Dashboard} />
+        <ProtectedRoute path="/dashboard" component={Dashboard} />
       </Switch>
     </div>
   );

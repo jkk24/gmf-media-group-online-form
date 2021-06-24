@@ -1,13 +1,5 @@
 import React from "react";
-import {
-  Tabs,
-  Tab,
-  Container,
-  Jumbotron,
-  Form,
-  Button,
-  FormControl,
-} from "react-bootstrap";
+import { Tabs, Tab, Container, Jumbotron, Form, Button } from "react-bootstrap";
 import PendingOrders from "../components/PendingOrders";
 import CompletedOrders from "../components/CompletedOrders";
 
@@ -53,7 +45,7 @@ const Dashboard = () => {
         <Container>
           <h1>Place an order here!</h1>
           <br />
-          <Form class="justify-content-center">
+          <Form className="justify-content-center">
             <Button variant="outline-primary">Order</Button>
           </Form>
         </Container>
