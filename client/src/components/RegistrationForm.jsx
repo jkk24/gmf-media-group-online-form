@@ -3,6 +3,7 @@ import * as yup from "yup";
 import { Formik } from "formik";
 import { Form, Button } from "react-bootstrap";
 import UserAPI from "../apis/UserAPI";
+import { useHistory } from "react-router-dom";
 
 const schema = yup.object().shape({
   email: yup.string().email().required(),
@@ -24,6 +25,7 @@ UserAPI.defaults.withCredentials = true;
 
 //Lets user input a test object into backend db
 const RegistrationForm = () => {
+  let history = useHistory();
   return (
     <Formik
       initialValues={{
@@ -56,8 +58,13 @@ const RegistrationForm = () => {
             cell: data.cell,
             website: data.website,
           });
-          console.log(response.data.status[0].message);
-          setErrors({ email: response.data.status[0].message });
+          //   console.log(response.data.status);
+          if (response.data.status === "success") {
+            alert("Please check your email for confirmation link!");
+            history.push("/");
+          } else {
+            setErrors({ email: response.data.status[0].message });
+          }
           //   console.log(data);
         } catch (err) {
           console.log(err);
