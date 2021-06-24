@@ -2,6 +2,7 @@ import React, { useEffect, useContext } from "react";
 import { Switch, Route } from "react-router-dom";
 import Register from "./routes/Register";
 import Login from "./routes/Login";
+import Home from "./routes/Home";
 import UserAPI from "./apis/UserAPI";
 import { AuthContext } from "./context/AuthContext";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -46,6 +47,7 @@ function App() {
       <Switch>
         <Route path="/register" component={Register} />
         <Route path="/login" component={Login} />
+        <Route path="/" component={Home} />
       </Switch>
     </div>
   );
