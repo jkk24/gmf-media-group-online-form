@@ -1,9 +1,13 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useContext } from "react";
+import { AuthContext } from "../context/AuthContext";
+import { Link, Redirect } from "react-router-dom";
 import { Card, Button, Container } from "react-bootstrap";
 
 const Home = () => {
-  return (
+  const { loggedIn } = useContext(AuthContext);
+  return loggedIn === true ? (
+    <Redirect to="/dashboard" />
+  ) : (
     <Container>
       <br />
       <br />
