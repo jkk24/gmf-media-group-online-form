@@ -13,18 +13,20 @@ const ConfirmEmail = () => {
         });
         console.log(response.data.confirmed);
         if (response.data.confirmed === "false") {
-          const confirmationResponse = await UserAPI.post("/confirmEmail", {
+          const confirmationResponse = await UserAPI.post("/userConfirmEmail", {
             user_id: userID,
           });
           if (confirmationResponse.data.status === "success") {
             setConfirmed(true);
-            alert("Email confirmed! Please log in.");
+            alert("Email confirmed! Please wait for admin confirmation.");
           } else {
             alert("An error occurred");
           }
         } else {
           setConfirmed(true);
-          alert("Email already confirmed! Please log in.");
+          alert(
+            "Email already confirmed! Please log in or wait for admin confirmation."
+          );
         }
       } catch (err) {
         console.log(err);
