@@ -4,6 +4,7 @@ import PendingOrders from "../components/PendingOrders";
 import CompletedOrders from "../components/CompletedOrders";
 import AdminCompletedOrders from "../components/AdminCompletedOrders";
 import AdminPendingOrders from "../components/AdminPendingOrders";
+import UserList from "../components/UserList";
 import { AuthContext } from "../context/AuthContext";
 
 const Dashboard = () => {
@@ -18,6 +19,9 @@ const Dashboard = () => {
           </Tab>
           <Tab eventKey="adminCompletedOrders" title="All Completed Orders">
             <AdminCompletedOrders />
+          </Tab>
+          <Tab eventKey="userList" title="All Users">
+            <UserList />
           </Tab>
         </Tabs>
       </div>
