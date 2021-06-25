@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import UserAPI from "../apis/UserAPI";
 import { Table, Button } from "react-bootstrap";
 
@@ -11,6 +11,7 @@ const UserList = (props) => {
         const response = await UserAPI.get("/getAllUsers");
         // console.log(response.data.data);
         setUserList(response.data.data);
+        //console.log(userList);
       } catch (err) {
         console.log(err);
       }
@@ -27,6 +28,25 @@ const UserList = (props) => {
       hour: "2-digit",
       minute: "2-digit",
     }).format(dt);
+  };
+
+  const handleApprove = async (e) => {
+    //console.log(e.target.id);
+    try {
+      await UserAPI.post("/approve", {
+        user_id: e.target.id,
+      });
+      try {
+        const response = await UserAPI.post("/getAllUsers", {});
+        // console.log(response.data.data);
+        setUserList(response.data.data);
+      } catch (err) {
+        console.log(err);
+      }
+      // console.log(response);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
@@ -46,23 +66,27 @@ const UserList = (props) => {
             const status = user.adminConfirmed;
             let statusElement;
             let approveElement = <td></td>;
-            if (status == "true") {
+            if (status === "true") {
               statusElement = <td style={{ color: "green" }}>APPROVED</td>;
             } else {
               statusElement = <td style={{ color: "red" }}>PENDING</td>;
               approveElement = (
                 <td>
-                  <Button>Approve</Button>
+                  <Button id={user.user_id} onClick={handleApprove}>
+                    Approve
+                  </Button>
                 </td>
               );
             }
             return (
               <>
-                <td>{index}</td>
-                <td>{user.email}</td>
-                <td>{formatDT(user.createdAt)}</td>
-                {approveElement}
-                {statusElement}
+                <tr key={index}>
+                  <td>{index}</td>
+                  <td>{user.email}</td>
+                  <td>{formatDT(user.createdAt)}</td>
+                  {approveElement}
+                  {statusElement}
+                </tr>
               </>
             );
           })}

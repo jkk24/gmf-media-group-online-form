@@ -190,4 +190,20 @@ router.get("/getAllUsers", async (req, res) => {
   }
 });
 
+router.post("/approve", async (req, res) => {
+  try {
+    const userResult = await user.update(
+      { adminConfirmed: "true" },
+      { where: { user_id: req.body.user_id }, raw: true }
+    );
+    res.status(200).json({
+      status: "success",
+    });
+  } catch (err) {
+    // console.log(req.body);
+    console.log(err);
+    // console.log("THERE IS AN ERROR!");
+  }
+});
+
 module.exports = router;
