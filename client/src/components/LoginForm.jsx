@@ -28,7 +28,27 @@ const LoginForm = () => {
           });
           //   console.log(response.data);
           if (response.data.status === "success") {
-            history.push("/dashboard");
+            try {
+              const confResponse = await UserAPI.post(
+                "/checkConfirmationOnLogin",
+                {
+                  email: data.email,
+                }
+              );
+              if (confResponse.data.confirmed === "true") {
+                history.push("/dashboard");
+              } else {
+                try {
+                  await UserAPI.get("/logout");
+                  alert("Please check your email for confirmation!");
+                  history.push("/login");
+                } catch (err) {
+                  console.log(err);
+                }
+              }
+            } catch (err) {
+              console.log(err);
+            }
           } else {
             if (response.data.target === "email") {
               setErrors({ email: response.data.status });

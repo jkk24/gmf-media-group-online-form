@@ -91,6 +91,25 @@ router.post("/checkConfirmation", async (req, res) => {
   }
 });
 
+router.post("/checkConfirmationOnLogin", async (req, res) => {
+  try {
+    const userResult = await user.findOne({
+      where: {
+        email: req.body.email,
+      },
+      raw: true,
+    });
+    res.status(200).json({
+      status: "success",
+      confirmed: userResult.confirmed,
+    });
+  } catch (err) {
+    // console.log(req.body);
+    console.log(err);
+    // console.log("THERE IS AN ERROR!");
+  }
+});
+
 router.post("/confirmEmail", async (req, res) => {
   try {
     const userResult = await user.update(
