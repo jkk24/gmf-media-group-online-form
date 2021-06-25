@@ -59,6 +59,11 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: "false",
       allowNull: false,
     },
+    adminConfirmed: {
+      type: DataTypes.STRING,
+      defaultValue: "false",
+      allowNull: false,
+    },
     role: {
       type: DataTypes.STRING,
       defaultValue: "user",
