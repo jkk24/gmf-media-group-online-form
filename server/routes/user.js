@@ -102,6 +102,7 @@ router.post("/checkConfirmationOnLogin", async (req, res) => {
     res.status(200).json({
       status: "success",
       confirmed: userResult.confirmed,
+      adminConfirmed: userResult.adminConfirmed,
     });
   } catch (err) {
     // console.log(req.body);
@@ -110,12 +111,21 @@ router.post("/checkConfirmationOnLogin", async (req, res) => {
   }
 });
 
-router.post("/confirmEmail", async (req, res) => {
+router.post("/userConfirmEmail", async (req, res) => {
   try {
     const userResult = await user.update(
       { confirmed: "true" },
       { where: { user_id: req.body.user_id }, raw: true }
     );
+    const mailOptions = {
+      from: '"GMF Media Group" <healthy.you.511@gmail.com>', // sender address
+      to: "healthy.you.511@gmail.com",
+      subject: `${userResult.email} has signed up!`, // Subject line
+      text: "Please log into your admin dashboard to approve or delete the account.", // plain text body
+      html: "Please log into your admin dashboard to approve or delete the account.",
+    };
+    // send mail with defined transport object
+    const info = transporter.sendMail(mailOptions);
     res.status(200).json({
       status: "success",
     });
@@ -160,6 +170,24 @@ router.get("/loggedInUser", (req, res) => {
 router.get("/logout", (req, res) => {
   req.logout();
   res.send("Successfully logged out!");
+});
+
+router.get("/getAllUsers", async (req, res) => {
+  try {
+    const getAllUsers = await user.findAll({
+      where: {
+        role: "user",
+      },
+      raw: true,
+    });
+    // console.log(getAllUsers);
+    res.status(200).json({
+      status: "success",
+      data: getAllUsers,
+    });
+  } catch (err) {
+    console.error(err.message);
+  }
 });
 
 module.exports = router;
