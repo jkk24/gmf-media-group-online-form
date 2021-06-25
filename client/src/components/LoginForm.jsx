@@ -36,7 +36,17 @@ const LoginForm = () => {
                 }
               );
               if (confResponse.data.confirmed === "true") {
-                history.push("/dashboard");
+                if (confResponse.data.adminConfirmed === "true") {
+                  history.push("/dashboard");
+                } else {
+                  try {
+                    await UserAPI.get("/logout");
+                    alert("Please wait for admin confirmation!");
+                    history.push("/login");
+                  } catch (err) {
+                    console.log(err);
+                  }
+                }
               } else {
                 try {
                   await UserAPI.get("/logout");
