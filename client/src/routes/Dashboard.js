@@ -8,7 +8,7 @@ import { AuthContext } from "../context/AuthContext";
 
 const Dashboard = () => {
   const { role } = useContext(AuthContext);
-  return role === "holder" ? (
+  return role === "Placeholder" ? (
     <Container>
       <h1>Admin Dashboard</h1>
       <div>
@@ -21,6 +21,39 @@ const Dashboard = () => {
           </Tab>
         </Tabs>
       </div>
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <Jumbotron fluid className="text-center">
+        <Container>
+          <h1>Start an order here!</h1>
+          <br />
+          <Form className="justify-content-center">
+            <Button variant="outline-primary">Order</Button>
+          </Form>
+        </Container>
+      </Jumbotron>
     </Container>
   ) : (
     <Container>
@@ -70,54 +103,6 @@ const Dashboard = () => {
       </Jumbotron>
     </Container>
   );
-  //   return (
-  //     <Container>
-  //       <h1>Dashboard</h1>
-  //       <div>
-  //         <Tabs defaultActiveKey="pendingOrders" id="uncontrolled-tab">
-  //           <Tab eventKey="pendingOrders" title="Pending Orders">
-  //             <PendingOrders />
-  //           </Tab>
-  //           <Tab eventKey="completedOrders" title="Completed Orders">
-  //             <CompletedOrders />
-  //           </Tab>
-  //         </Tabs>
-  //       </div>
-  //       <br />
-  //       <br />
-  //       <br />
-  //       <br />
-  //       <br />
-  //       <br />
-  //       <br />
-  //       <br />
-  //       <br />
-  //       <br />
-  //       <br />
-  //       <br />
-  //       <br />
-  //       <br />
-  //       <br />
-  //       <br />
-  //       <br />
-  //       <br />
-  //       <br />
-  //       <br />
-  //       <br />
-  //       <br />
-  //       <br />
-  //       <br />
-  //       <Jumbotron fluid className="text-center">
-  //         <Container>
-  //           <h1>Place an order here!</h1>
-  //           <br />
-  //           <Form className="justify-content-center">
-  //             <Button variant="outline-primary">Order</Button>
-  //           </Form>
-  //         </Container>
-  //       </Jumbotron>
-  //     </Container>
-  //   );
 };
 
 export default Dashboard;
