@@ -31,7 +31,7 @@ const UserList = (props) => {
   };
 
   const handleApprove = async (e) => {
-    //console.log(e.target.id);
+    console.log(e.target.id);
     try {
       await UserAPI.post("/approve", {
         user_id: e.target.id,
@@ -80,7 +80,7 @@ const UserList = (props) => {
             }
             return (
               <>
-                <tr key={index}>
+                <tr key={user.user_id}>
                   <td>{index}</td>
                   <td>{user.email}</td>
                   <td>{formatDT(user.createdAt)}</td>
