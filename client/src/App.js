@@ -9,6 +9,7 @@ import UserAPI from "./apis/UserAPI";
 import { AuthContext } from "./context/AuthContext";
 import "bootstrap/dist/css/bootstrap.min.css";
 import ConfirmEmail from "./routes/ConfirmEmail";
+import Order from "./routes/Order";
 
 function App() {
   const { loggedIn, setLoggedIn, setRole, setId } = useContext(AuthContext);
@@ -55,6 +56,7 @@ function App() {
         <Route exact path="/" component={Home} />
         <ProtectedRoute path="/dashboard" component={Dashboard} />
         <Route path="/confirmEmail/:userID" component={ConfirmEmail} />
+        <Route path="/order" component={Order} />
       </Switch>
     </div>
   );
