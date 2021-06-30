@@ -4,8 +4,9 @@ const cors = require("cors");
 const session = require("express-session");
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 const { user } = require("./db/models");
+require("dotenv").config;
 
 app.use(express.json());
 const corsOptions = {
@@ -62,7 +63,7 @@ passport.deserializeUser((user, done) => {
 // Session Setup
 app.use(
   session({
-    secret: "LOLXD",
+    secret: process.env.SECRET,
     resave: false,
     saveUninitialized: true,
   })
@@ -77,8 +78,13 @@ app.use("/user", userRouter);
 const orderRouter = require("./routes/order");
 app.use("/order", orderRouter);
 
-db.sequelize.sync().then(() => {
-  app.listen(8080, () => {
-    console.log("Server is now running on port 8080!");
+db.sequelize
+  .sync()
+  .then(() => {
+    app.listen(process.env.PORT || 8080, () => {
+      console.log("Server is now running on port 8080!");
+    });
+  })
+  .catch((err) => {
+    console.log(err);
   });
-});

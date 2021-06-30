@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const { user } = require("../db/models");
 const passport = require("passport");
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 const nodemailer = require("nodemailer");
 
 // gmail transporter
