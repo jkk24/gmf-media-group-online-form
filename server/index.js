@@ -74,6 +74,8 @@ app.use(passport.session());
 // Routers
 const userRouter = require("./routes/user");
 app.use("/user", userRouter);
+const orderRouter = require("./routes/order");
+app.use("/order", orderRouter);
 
 db.sequelize.sync().then(() => {
   app.listen(8080, () => {
