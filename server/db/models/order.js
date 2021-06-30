@@ -43,6 +43,11 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.ARRAY(DataTypes.STRING),
       allowNull: false,
     },
+    status: {
+      type: DataTypes.STRING(),
+      defaultValue: "IN-PROGRESS",
+      allowNull: false,
+    },
   });
 
   return order;
