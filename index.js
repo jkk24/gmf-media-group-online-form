@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
 const cors = require("cors");
+const path = require("path");
 const session = require("express-session");
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
@@ -15,6 +16,12 @@ const corsOptions = {
   credentials: true,
 };
 app.use(cors(corsOptions));
+
+if (process.env.NODE_ENV === "production") {
+  // server static content
+  // npm run build
+  app.use(express.static(path.join(__dirname, "client/build")));
+}
 
 const db = require("./db/models");
 
