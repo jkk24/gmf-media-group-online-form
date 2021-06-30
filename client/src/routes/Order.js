@@ -22,7 +22,12 @@ import { CheckboxWithLabel } from "formik-material-ui";
 
 const schema = yup.object().shape({
   //printingOptions: yup.array().min(1),
-  advertisingDuration: yup.array().max(1, "Please choose only one option"),
+  advertisingDuration: yup
+    .array()
+    .min(1, "Please select one option.")
+    .max(1, "Please choose only one option."),
+  digitalServices: yup.array().min(1, "Please choose at least one option."),
+  typeOfAd: yup.array().min(1, "Please choose at least one option."),
 });
 
 function createData(description, print, unit) {
@@ -159,6 +164,7 @@ const Order = () => {
                   value="banner"
                   Label={{ label: "BANNER" }}
                 />
+                <FormHelperText>{errors.typeOfAd}</FormHelperText>
               </CardContent>
             </Card>
             <Card>
@@ -174,6 +180,7 @@ const Order = () => {
                     Label={{ label: service }}
                   />
                 ))}
+                <FormHelperText>{errors.digitalServices}</FormHelperText>
               </CardContent>
             </Card>
             <Card>
