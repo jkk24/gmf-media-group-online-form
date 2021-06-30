@@ -33,6 +33,25 @@ router.post("/create", async (req, res) => {
   }
 });
 
+router.post("/getUserPendingOrders", async (req, res) => {
+  try {
+    const getAllOrders = await order.findAll({
+      where: {
+        email: req.body.email,
+        status: "IN-PROGRESS",
+      },
+      raw: true,
+    });
+    // console.log(getAllUsers);
+    res.status(200).json({
+      status: "success",
+      data: getAllOrders,
+    });
+  } catch (err) {
+    console.error(err.message);
+  }
+});
+
 router.get("/getPendingOrders", async (req, res) => {
   try {
     const getAllOrders = await order.findAll({
