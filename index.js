@@ -85,6 +85,11 @@ app.use("/user", userRouter);
 const orderRouter = require("./routes/order");
 app.use("/order", orderRouter);
 
+app.get("/*", (req, res) => {
+  const url = path.join(__dirname, "client/build", "index.html");
+  res.sendFile(url);
+});
+
 db.sequelize
   .sync()
   .then(() => {
