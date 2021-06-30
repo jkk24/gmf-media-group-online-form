@@ -1,9 +1,9 @@
 import React, { useEffect, useState, useContext } from "react";
-import { Table, Container, Button } from "react-bootstrap";
+import { Table, Container } from "react-bootstrap";
 import { AuthContext } from "../context/AuthContext";
 import OrderAPI from "../apis/OrderAPI";
 
-const AdminCompletedOrders = () => {
+const UserCompletedOrders = () => {
   const { email } = useContext(AuthContext);
   const [orderList, setOrderList] = useState([]);
 
@@ -31,7 +31,8 @@ const AdminCompletedOrders = () => {
       }
     };
     fetchData();
-  }, []);
+  }, [email]);
+
   return (
     <Container>
       <Table striped bordered hover>
@@ -68,4 +69,4 @@ const AdminCompletedOrders = () => {
   );
 };
 
-export default AdminCompletedOrders;
+export default UserCompletedOrders;

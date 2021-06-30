@@ -1,9 +1,9 @@
 import React, { useEffect, useState, useContext } from "react";
-import { Table, Container, Button } from "react-bootstrap";
+import { Table, Container } from "react-bootstrap";
 import OrderAPI from "../apis/OrderAPI";
 import { AuthContext } from "../context/AuthContext";
 
-const AdminPendingOrders = () => {
+const UserPendingOrders = () => {
   const { email } = useContext(AuthContext);
   const [orderList, setOrderList] = useState([]);
 
@@ -16,25 +16,6 @@ const AdminPendingOrders = () => {
       hour: "2-digit",
       minute: "2-digit",
     }).format(dt);
-  };
-
-  const handleApprove = async (e) => {
-    console.log(e.target.id);
-    try {
-      await OrderAPI.post("/complete", {
-        order_id: e.target.id,
-      });
-      try {
-        const response = await OrderAPI.get("/getPendingOrders", {});
-        // console.log(response.data.data);
-        setOrderList(response.data.data);
-      } catch (err) {
-        console.log(err);
-      }
-      // console.log(response);
-    } catch (err) {
-      console.log(err);
-    }
   };
 
   useEffect(() => {
@@ -50,7 +31,7 @@ const AdminPendingOrders = () => {
       }
     };
     fetchData();
-  }, []);
+  }, [email]);
   return (
     <Container>
       <Table striped bordered hover>
@@ -85,4 +66,4 @@ const AdminPendingOrders = () => {
   );
 };
 
-export default AdminPendingOrders;
+export default UserPendingOrders;

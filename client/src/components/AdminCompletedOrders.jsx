@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Table, Container, Button } from "react-bootstrap";
+import { Table, Container } from "react-bootstrap";
 import OrderAPI from "../apis/OrderAPI";
 
 const AdminCompletedOrders = () => {
