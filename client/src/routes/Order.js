@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect } from "react";
 import * as yup from "yup";
 import { Formik, Form, Field } from "formik";
-import { Button, LinearProgress } from "@material-ui/core";
+import { Button } from "@material-ui/core";
 import MenuItem from "@material-ui/core/MenuItem";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -19,6 +19,7 @@ import { FormHelperText } from "@material-ui/core";
 
 import { Select } from "formik-material-ui";
 import { CheckboxWithLabel } from "formik-material-ui";
+import { AppContext } from "../context/AppContext";
 
 const schema = yup.object().shape({
   //printingOptions: yup.array().min(1),
@@ -67,25 +68,48 @@ const DigitalServices = [
 ];
 
 const Order = () => {
-  const [confirming, setConfirming] = useState(false);
-  const [printingOptions, setPrintingOptions] = useState([]);
-  const [typeOfAd, setTypeOfAd] = useState([]);
-  const [digitalServices, setDigitalServices] = useState([]);
-  const [advertisingDuration, setAdvertisingDuration] = useState([]);
+  const {
+    confirming,
+    setConfirming,
+    printingOptions,
+    setPrintingOptions,
+    typeOfAd,
+    setTypeOfAd,
+    digitalServices,
+    setDigitalServices,
+    advertisingDuration,
+    setAdvertisingDuration,
+  } = useContext(AppContext);
+  // const [confirming, setConfirming] = useState(false);
+  // const [printingOptions, setPrintingOptions] = useState([
+  //   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+  // ]);
+  // const [typeOfAd, setTypeOfAd] = useState([]);
+  // const [digitalServices, setDigitalServices] = useState([]);
+  // const [advertisingDuration, setAdvertisingDuration] = useState([]);
+
+  useEffect(() => {
+    // Define a function fetchData that calls APIs which is then called in useEffect
+    const fetchData = async () => {
+      setConfirming(false);
+    };
+    fetchData();
+  }, [setConfirming]);
+
   return confirming === true ? (
     <OrderConfirmation
-      printingOptions={printingOptions}
-      typeOfAd={typeOfAd}
-      digitalServices={digitalServices}
-      advertisingDuration={advertisingDuration}
+    // printingOptions={printingOptions}
+    // typeOfAd={typeOfAd}
+    // digitalServices={digitalServices}
+    // advertisingDuration={advertisingDuration}
     />
   ) : (
     <Formik
       initialValues={{
-        printingOptions: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        typeOfAd: [],
-        digitalServices: [],
-        advertisingDuration: [],
+        printingOptions: printingOptions,
+        typeOfAd: typeOfAd,
+        digitalServices: digitalServices,
+        advertisingDuration: advertisingDuration,
       }}
       validationSchema={schema}
       onSubmit={(values, { setSubmitting }, errors) => {
@@ -148,7 +172,7 @@ const Order = () => {
                   type="checkbox"
                   name="typeOfAd"
                   value="display"
-                  Label={{ label: "DSIPLAY" }}
+                  Label={{ label: "DISPLAY" }}
                 />
                 <Field
                   component={CheckboxWithLabel}
@@ -248,7 +272,7 @@ const Order = () => {
                   disabled={isSubmitting}
                   onClick={submitForm}
                 >
-                  Submit
+                  Next
                 </Button>
               </CardContent>
             </Card>

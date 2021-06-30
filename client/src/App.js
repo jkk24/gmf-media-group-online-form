@@ -11,6 +11,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import ConfirmEmail from "./routes/ConfirmEmail";
 import Order from "./routes/Order";
 import TopNavBar from "./components/TopNavBar";
+import { AppContextProvider } from "./context/AppContext";
 
 function App() {
   const { loggedIn, setLoggedIn, setRole, setId } = useContext(AuthContext);
@@ -38,17 +39,19 @@ function App() {
   }, [loggedIn, setLoggedIn, setRole, setId]);
 
   return (
-    <div>
-      <TopNavBar />
-      <Switch>
-        <Route path="/register" component={Register} />
-        <Route path="/login" component={Login} />
-        <Route exact path="/" component={Home} />
-        <ProtectedRoute path="/dashboard" component={Dashboard} />
-        <Route path="/confirmEmail/:userID" component={ConfirmEmail} />
-        <Route path="/order" component={Order} />
-      </Switch>
-    </div>
+    <AppContextProvider>
+      <div>
+        <TopNavBar />
+        <Switch>
+          <Route path="/register" component={Register} />
+          <Route path="/login" component={Login} />
+          <Route exact path="/" component={Home} />
+          <ProtectedRoute path="/dashboard" component={Dashboard} />
+          <Route path="/confirmEmail/:userID" component={ConfirmEmail} />
+          <Route path="/order" component={Order} />
+        </Switch>
+      </div>
+    </AppContextProvider>
   );
 }
 

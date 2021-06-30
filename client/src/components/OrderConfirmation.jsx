@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import Accordion from "@material-ui/core/Accordion";
 import AccordionSummary from "@material-ui/core/AccordionSummary";
 import AccordionDetails from "@material-ui/core/AccordionDetails";
@@ -16,6 +16,8 @@ import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import Button from "@material-ui/core/Button";
 import OrderAPI from "../apis/OrderAPI";
+import { AppContext } from "../context/AppContext";
+import { useHistory } from "react-router-dom";
 
 function createData(description, print, unit, unitsOrdered, total) {
   return { description, print, unit, unitsOrdered, total };
@@ -40,7 +42,15 @@ const unit = [
   1007.4, 322.0, 259.33,
 ];
 
-const OrderConfirmation = (props) => {
+const OrderConfirmation = () => {
+  let history = useHistory();
+  const {
+    setConfirming,
+    printingOptions,
+    typeOfAd,
+    digitalServices,
+    advertisingDuration,
+  } = useContext(AppContext);
   const [printingOptionsChosen, setPrintingOptionsChosen] = useState([]);
   const [typeOfAdChosen, setTypeOfAdChosen] = useState([]);
   const [digitalServicesChosen, setDigitalServicesChosen] = useState([]);
@@ -48,6 +58,7 @@ const OrderConfirmation = (props) => {
     []
   );
   const [total, setTotal] = useState(null);
+
   useEffect(() => {
     const fetchData = () => {
       var tempPrintingOptionsChosen = [];
@@ -55,39 +66,39 @@ const OrderConfirmation = (props) => {
       var tempDigitalServicesChosen = [];
       var tempAdvertisingDurationChosen = [];
       var tempTotal = 0;
-      for (var i = 0; i < props.printingOptions.length; i++) {
-        if (props.printingOptions[i] > 0) {
+      for (var i = 0; i < printingOptions.length; i++) {
+        if (printingOptions[i] > 0) {
           tempPrintingOptionsChosen.push(
             createData(
               rows[i].description,
               rows[i].print,
               rows[i].unit,
-              props.printingOptions[i],
-              props.printingOptions[i] * unit[i]
+              printingOptions[i],
+              printingOptions[i] * unit[i]
             )
           );
-          tempTotal = tempTotal + props.printingOptions[i] * unit[i];
+          tempTotal = tempTotal + printingOptions[i] * unit[i];
         }
       }
-      if (props.typeOfAd.length > 0) {
-        for (var j = 0; j < props.typeOfAd.length; j++) {
-          tempTypeOfAdChosen.push(props.typeOfAd[j]);
+      if (typeOfAd.length > 0) {
+        for (var j = 0; j < typeOfAd.length; j++) {
+          tempTypeOfAdChosen.push(typeOfAd[j]);
         }
       } else {
         tempTypeOfAdChosen.push("You did not select any specific ad type.");
       }
-      if (props.digitalServices.length > 0) {
-        for (var k = 0; k < props.digitalServices.length; k++) {
-          tempDigitalServicesChosen.push(props.digitalServices[k]);
+      if (digitalServices.length > 0) {
+        for (var k = 0; k < digitalServices.length; k++) {
+          tempDigitalServicesChosen.push(digitalServices[k]);
         }
       } else {
         tempDigitalServicesChosen.push(
           "You did not select any digital services."
         );
       }
-      if (props.advertisingDuration.length > 0) {
-        for (var l = 0; l < props.advertisingDuration.length; l++) {
-          tempAdvertisingDurationChosen.push(props.advertisingDuration[l]);
+      if (advertisingDuration.length > 0) {
+        for (var l = 0; l < advertisingDuration.length; l++) {
+          tempAdvertisingDurationChosen.push(advertisingDuration[l]);
         }
       } else {
         tempAdvertisingDurationChosen.push(
@@ -101,19 +112,74 @@ const OrderConfirmation = (props) => {
       setAdvertisingDurationChosen(tempAdvertisingDurationChosen);
     };
     fetchData();
-  }, [
-    props.printingOptions,
-    props.typeOfAd,
-    props.digitalServices,
-    props.advertisingDuration,
-  ]);
+  }, [printingOptions, typeOfAd, digitalServices, advertisingDuration]);
+
+  // useEffect(() => {
+  //   const fetchData = () => {
+  //     var tempPrintingOptionsChosen = [];
+  //     var tempTypeOfAdChosen = [];
+  //     var tempDigitalServicesChosen = [];
+  //     var tempAdvertisingDurationChosen = [];
+  //     var tempTotal = 0;
+  //     for (var i = 0; i < props.printingOptions.length; i++) {
+  //       if (props.printingOptions[i] > 0) {
+  //         tempPrintingOptionsChosen.push(
+  //           createData(
+  //             rows[i].description,
+  //             rows[i].print,
+  //             rows[i].unit,
+  //             props.printingOptions[i],
+  //             props.printingOptions[i] * unit[i]
+  //           )
+  //         );
+  //         tempTotal = tempTotal + props.printingOptions[i] * unit[i];
+  //       }
+  //     }
+  //     if (props.typeOfAd.length > 0) {
+  //       for (var j = 0; j < props.typeOfAd.length; j++) {
+  //         tempTypeOfAdChosen.push(props.typeOfAd[j]);
+  //       }
+  //     } else {
+  //       tempTypeOfAdChosen.push("You did not select any specific ad type.");
+  //     }
+  //     if (props.digitalServices.length > 0) {
+  //       for (var k = 0; k < props.digitalServices.length; k++) {
+  //         tempDigitalServicesChosen.push(props.digitalServices[k]);
+  //       }
+  //     } else {
+  //       tempDigitalServicesChosen.push(
+  //         "You did not select any digital services."
+  //       );
+  //     }
+  //     if (props.advertisingDuration.length > 0) {
+  //       for (var l = 0; l < props.advertisingDuration.length; l++) {
+  //         tempAdvertisingDurationChosen.push(props.advertisingDuration[l]);
+  //       }
+  //     } else {
+  //       tempAdvertisingDurationChosen.push(
+  //         "You did not select an advertising Duration."
+  //       );
+  //     }
+  //     setTotal(tempTotal * tempAdvertisingDurationChosen[0]);
+  //     setPrintingOptionsChosen(tempPrintingOptionsChosen);
+  //     setTypeOfAdChosen(tempTypeOfAdChosen);
+  //     setDigitalServicesChosen(tempDigitalServicesChosen);
+  //     setAdvertisingDurationChosen(tempAdvertisingDurationChosen);
+  //   };
+  //   fetchData();
+  // }, [
+  //   props.printingOptions,
+  //   props.typeOfAd,
+  //   props.digitalServices,
+  //   props.advertisingDuration,
+  // ]);
 
   const handleSubmit = async (e) => {
-    console.log(printingOptionsChosen);
-    console.log(typeOfAdChosen);
-    console.log(digitalServicesChosen);
-    console.log(advertisingDurationChosen);
-    console.log(total);
+    // console.log(printingOptionsChosen);
+    // console.log(typeOfAdChosen);
+    // console.log(digitalServicesChosen);
+    // console.log(advertisingDurationChosen);
+    // console.log(total);
     try {
       const response = await OrderAPI.post("/create", {
         email: "jkk24@njit.edu",
@@ -123,14 +189,20 @@ const OrderConfirmation = (props) => {
         digital_services: digitalServicesChosen,
         advertising_duration: advertisingDurationChosen,
       });
-      console.log(response);
-      if (response === "success") {
+      //console.log(response.data.status);
+      if (response.data.status === "success") {
         alert("Your order has been successfully submitted!");
+        history.push("/dashboard");
       }
     } catch (err) {
       console.log(err);
     }
   };
+
+  const handleBack = (e) => {
+    setConfirming(false);
+  };
+
   return (
     <Container>
       <h1>Order Confirmation</h1>
@@ -219,9 +291,20 @@ const OrderConfirmation = (props) => {
           </Accordion>
         </CardContent>
       </Card>
-      <Button type="submit" onClick={handleSubmit}>
-        Submit
-      </Button>
+      <Card>
+        <CardContent>
+          <Button type="submit" onClick={handleBack}>
+            Back
+          </Button>
+        </CardContent>
+      </Card>
+      <Card>
+        <CardContent>
+          <Button type="submit" onClick={handleSubmit}>
+            Submit
+          </Button>
+        </CardContent>
+      </Card>
     </Container>
   );
 };
