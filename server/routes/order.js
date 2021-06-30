@@ -51,11 +51,11 @@ router.get("/getPendingOrders", async (req, res) => {
   }
 });
 
-router.post("/approve", async (req, res) => {
+router.post("/complete", async (req, res) => {
   try {
-    const userResult = await user.update(
-      { adminConfirmed: "true" },
-      { where: { user_id: req.body.user_id }, raw: true }
+    const orderResult = await order.update(
+      { status: "COMPLETED" },
+      { where: { order_id: req.body.order_id }, raw: true }
     );
     res.status(200).json({
       status: "success",

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Table, Container } from "react-bootstrap";
+import { Table, Container, Button } from "react-bootstrap";
 import OrderAPI from "../apis/OrderAPI";
 
 const AdminPendingOrders = () => {
@@ -14,6 +14,25 @@ const AdminPendingOrders = () => {
       hour: "2-digit",
       minute: "2-digit",
     }).format(dt);
+  };
+
+  const handleApprove = async (e) => {
+    console.log(e.target.id);
+    try {
+      await OrderAPI.post("/complete", {
+        order_id: e.target.id,
+      });
+      try {
+        const response = await OrderAPI.get("/getPendingOrders", {});
+        // console.log(response.data.data);
+        setOrderList(response.data.data);
+      } catch (err) {
+        console.log(err);
+      }
+      // console.log(response);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   useEffect(() => {
@@ -49,14 +68,18 @@ const AdminPendingOrders = () => {
             return (
               <tr key={index}>
                 <td>{index}</td>
-                <td>Button</td>
+                <td>
+                  <Button id={order.order_id} onClick={handleApprove}>
+                    Complete
+                  </Button>
+                </td>
                 <td>{order.email}</td>
                 <td>{order.order_id}</td>
                 <td>{formatDT(order.createdAt)}</td>
                 <td>{order.total}</td>
                 <td>View Form Link</td>
                 <td>TODO</td>
-                <td>{order.status}</td>
+                <td style={{ color: "blue" }}>{order.status}</td>
               </tr>
             );
           })}
