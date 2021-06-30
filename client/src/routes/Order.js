@@ -15,12 +15,14 @@ import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import CardHeader from "@material-ui/core/CardHeader";
 import OrderConfirmation from "../components/OrderConfirmation";
+import { FormHelperText } from "@material-ui/core";
 
 import { Select } from "formik-material-ui";
 import { CheckboxWithLabel } from "formik-material-ui";
 
 const schema = yup.object().shape({
   //printingOptions: yup.array().min(1),
+  advertisingDuration: yup.array().max(1, "Please choose only one option"),
 });
 
 function createData(description, print, unit) {
@@ -93,7 +95,7 @@ const Order = () => {
         setConfirming(true);
       }}
     >
-      {({ submitForm, isSubmitting }) => (
+      {({ submitForm, isSubmitting, errors }) => (
         <Form>
           <Container>
             <Card>
@@ -228,6 +230,7 @@ const Order = () => {
                   value="Sponsorship Event"
                   Label={{ label: "Sponsorship Event (TODO)" }}
                 />
+                <FormHelperText>{errors.advertisingDuration}</FormHelperText>
               </CardContent>
             </Card>
           </Container>
