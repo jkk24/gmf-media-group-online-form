@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useState } from "react";
 import * as yup from "yup";
 import { Formik, Form, Field } from "formik";
 import { Button, LinearProgress } from "@material-ui/core";
@@ -14,6 +14,7 @@ import Container from "@material-ui/core/Container";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import CardHeader from "@material-ui/core/CardHeader";
+import OrderConfirmation from "../components/OrderConfirmation";
 
 import { Select } from "formik-material-ui";
 import { CheckboxWithLabel } from "formik-material-ui";
@@ -38,7 +39,7 @@ const rows = [
   createData("Quarter Page", '3.5" x 9.75"', "$662.40"),
   createData("One Third", '2.25" x 9.75"', "$1,007.40"),
   createData("1/6 Vertical", '2.25" x 4.75"', "$322.00"),
-  createData("Oe Eigth Page", '2.25" x 3.25"', "$259.33"),
+  createData("One Eigth Page", '2.25" x 3.25"', "$259.33"),
 ];
 
 const DigitalServices = [
@@ -59,7 +60,11 @@ const DigitalServices = [
 ];
 
 const Order = () => {
-  return (
+  const [confirming, setConfirming] = useState(false);
+  const [printingOptions, setPrintingOptions] = useState([]);
+  return confirming === true ? (
+    <OrderConfirmation printingOptions={printingOptions} />
+  ) : (
     <Formik
       initialValues={{
         printingOptions: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -73,7 +78,8 @@ const Order = () => {
           setSubmitting(false);
           alert(JSON.stringify(values, null, 2));
         }, 500);
-        console.log(values.printingOptions);
+        setPrintingOptions(values.printingOptions);
+        setConfirming(true);
       }}
     >
       {({ submitForm, isSubmitting }) => (
