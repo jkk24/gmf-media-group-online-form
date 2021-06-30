@@ -6,9 +6,14 @@ import AdminCompletedOrders from "../components/AdminCompletedOrders";
 import AdminPendingOrders from "../components/AdminPendingOrders";
 import UserList from "../components/UserList";
 import { AuthContext } from "../context/AuthContext";
+import { useHistory } from "react-router-dom";
 
 const Dashboard = () => {
   const { role } = useContext(AuthContext);
+  const history = useHistory();
+  const handleSubmit = () => {
+    history.push(`/order`);
+  };
   return role === "Placeholder" ? (
     <Container>
       <h1>Admin Dashboard</h1>
@@ -54,7 +59,9 @@ const Dashboard = () => {
           <h1>Start an order here!</h1>
           <br />
           <Form className="justify-content-center">
-            <Button variant="outline-primary">Order</Button>
+            <Button onClick={handleSubmit} variant="outline-primary">
+              Order
+            </Button>
           </Form>
         </Container>
       </Jumbotron>
