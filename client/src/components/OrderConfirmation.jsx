@@ -14,6 +14,7 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
+import Button from "@material-ui/core/Button";
 
 function createData(description, print, unit, unitsOrdered, total) {
   return { description, print, unit, unitsOrdered, total };
@@ -40,9 +41,17 @@ const unit = [
 
 const OrderConfirmation = (props) => {
   const [printingOptionsChosen, setPrintingOptionsChosen] = useState([]);
+  const [typeOfAdChosen, setTypeOfAdChosen] = useState([]);
+  const [digitalServicesChosen, setDigitalServicesChosen] = useState([]);
+  const [advertisingDurationChosen, setAdvertisingDurationChosen] = useState(
+    []
+  );
   useEffect(() => {
     const fetchData = () => {
       var tempPrintingOptionsChosen = [];
+      var tempTypeOfAdChosen = [];
+      var tempDigitalServicesChosen = [];
+      var tempAdvertisingDurationChosen = [];
       for (var i = 0; i < props.printingOptions.length; i++) {
         if (props.printingOptions[i] > 0) {
           tempPrintingOptionsChosen.push(
@@ -56,13 +65,50 @@ const OrderConfirmation = (props) => {
           );
         }
       }
-      console.log(tempPrintingOptionsChosen);
+      if (props.typeOfAd.length > 0) {
+        for (var j = 0; j < props.typeOfAd.length; j++) {
+          tempTypeOfAdChosen.push(props.typeOfAd[j]);
+        }
+      } else {
+        tempTypeOfAdChosen.push("You did not select any specific ad type.");
+      }
+      if (props.digitalServices.length > 0) {
+        for (var k = 0; k < props.digitalServices.length; k++) {
+          tempDigitalServicesChosen.push(props.digitalServices[k]);
+        }
+      } else {
+        tempDigitalServicesChosen.push(
+          "You did not select any digital services."
+        );
+      }
+      if (props.advertisingDuration.length > 0) {
+        for (var l = 0; l < props.advertisingDuration.length; l++) {
+          tempAdvertisingDurationChosen.push(props.advertisingDuration[l]);
+        }
+      } else {
+        tempAdvertisingDurationChosen.push(
+          "You did not select an advertising Duration."
+        );
+      }
       setPrintingOptionsChosen(tempPrintingOptionsChosen);
+      setTypeOfAdChosen(tempTypeOfAdChosen);
+      setDigitalServicesChosen(tempDigitalServicesChosen);
+      setAdvertisingDurationChosen(tempAdvertisingDurationChosen);
     };
     fetchData();
-  }, [props.printingOptions]);
+  }, [
+    props.printingOptions,
+    props.typeOfAd,
+    props.digitalServices,
+    props.advertisingDuration,
+  ]);
+
+  const handleSubmit = (e) => {
+    console.log(printingOptionsChosen);
+  };
   return (
     <Container>
+      <h1>Order Confirmation</h1>
       <Card>
         <CardContent>
           <Accordion>
@@ -106,18 +152,51 @@ const OrderConfirmation = (props) => {
               aria-controls="panel2a-content"
               id="panel2a-header"
             >
-              <Typography>Accordion 2</Typography>
+              <Typography>Type of Ad</Typography>
             </AccordionSummary>
             <AccordionDetails>
-              <Typography>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
-                eget.
-              </Typography>
+              {typeOfAdChosen.map((type, index) => (
+                <Typography key={index}>{type}</Typography>
+              ))}
+            </AccordionDetails>
+          </Accordion>
+          <Accordion>
+            <AccordionSummary
+              expandIcon={<ExpandMoreIcon />}
+              aria-controls="panel2a-content"
+              id="panel2a-header"
+            >
+              <Typography>Digital Services</Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              {digitalServicesChosen.map((service, index) => (
+                <ol key={index}>
+                  <li>{service}</li>
+                </ol>
+              ))}
+            </AccordionDetails>
+          </Accordion>
+          <Accordion>
+            <AccordionSummary
+              expandIcon={<ExpandMoreIcon />}
+              aria-controls="panel2a-content"
+              id="panel2a-header"
+            >
+              <Typography>Advertising Duration</Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              {advertisingDurationChosen.map((duration, index) => (
+                <ol key={index}>
+                  <li>{duration}</li>
+                </ol>
+              ))}
             </AccordionDetails>
           </Accordion>
         </CardContent>
       </Card>
+      <Button type="submit" onClick={handleSubmit}>
+        Submit
+      </Button>
     </Container>
   );
 };

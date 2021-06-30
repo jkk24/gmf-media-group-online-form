@@ -62,8 +62,16 @@ const DigitalServices = [
 const Order = () => {
   const [confirming, setConfirming] = useState(false);
   const [printingOptions, setPrintingOptions] = useState([]);
+  const [typeOfAd, setTypeOfAd] = useState([]);
+  const [digitalServices, setDigitalServices] = useState([]);
+  const [advertisingDuration, setAdvertisingDuration] = useState([]);
   return confirming === true ? (
-    <OrderConfirmation printingOptions={printingOptions} />
+    <OrderConfirmation
+      printingOptions={printingOptions}
+      typeOfAd={typeOfAd}
+      digitalServices={digitalServices}
+      advertisingDuration={advertisingDuration}
+    />
   ) : (
     <Formik
       initialValues={{
@@ -79,6 +87,9 @@ const Order = () => {
           alert(JSON.stringify(values, null, 2));
         }, 500);
         setPrintingOptions(values.printingOptions);
+        setTypeOfAd(values.typeOfAd);
+        setDigitalServices(values.digitalServices);
+        setAdvertisingDuration(values.advertisingDuration);
         setConfirming(true);
       }}
     >
@@ -170,35 +181,35 @@ const Order = () => {
                   component={CheckboxWithLabel}
                   type="checkbox"
                   name="advertisingDuration"
-                  value={2}
+                  value="2"
                   Label={{ label: "2x Issues" }}
                 />
                 <Field
                   component={CheckboxWithLabel}
                   type="checkbox"
                   name="advertisingDuration"
-                  value={4}
+                  value="4"
                   Label={{ label: "4x Issues" }}
                 />
                 <Field
                   component={CheckboxWithLabel}
                   type="checkbox"
                   name="advertisingDuration"
-                  value={6}
+                  value="6"
                   Label={{ label: "6x Issues" }}
                 />
                 <Field
                   component={CheckboxWithLabel}
                   type="checkbox"
                   name="advertisingDuration"
-                  value={8}
+                  value="8"
                   Label={{ label: "8x Issues" }}
                 />
                 <Field
                   component={CheckboxWithLabel}
                   type="checkbox"
                   name="advertisingDuration"
-                  value={12}
+                  value="12"
                   Label={{ label: "12x Issues" }}
                 />
                 <Field
