@@ -15,6 +15,7 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import Button from "@material-ui/core/Button";
+import OrderAPI from "../apis/OrderAPI";
 
 function createData(description, print, unit, unitsOrdered, total) {
   return { description, print, unit, unitsOrdered, total };
@@ -93,6 +94,7 @@ const OrderConfirmation = (props) => {
           "You did not select an advertising Duration."
         );
       }
+      setTotal(tempTotal * tempAdvertisingDurationChosen[0]);
       setPrintingOptionsChosen(tempPrintingOptionsChosen);
       setTypeOfAdChosen(tempTypeOfAdChosen);
       setDigitalServicesChosen(tempDigitalServicesChosen);
@@ -106,8 +108,28 @@ const OrderConfirmation = (props) => {
     props.advertisingDuration,
   ]);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     console.log(printingOptionsChosen);
+    console.log(typeOfAdChosen);
+    console.log(digitalServicesChosen);
+    console.log(advertisingDurationChosen);
+    console.log(total);
+    try {
+      const response = await OrderAPI.post("/create", {
+        email: "jkk24@njit.edu",
+        total: total,
+        printing_options: printingOptionsChosen,
+        type_of_ad: typeOfAdChosen,
+        digital_services: digitalServicesChosen,
+        advertising_duration: advertisingDurationChosen,
+      });
+      console.log(response);
+      if (response === "success") {
+        alert("Your order has been successfully submitted!");
+      }
+    } catch (err) {
+      console.log(err);
+    }
   };
   return (
     <Container>

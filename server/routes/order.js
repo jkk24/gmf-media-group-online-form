@@ -16,7 +16,7 @@ router.post("/create", async (req, res) => {
     advertising_duration,
   } = req.body;
   try {
-    const order = await order.create({
+    const newOrder = await order.create({
       email: email,
       total: total,
       printing_options: printing_options,
@@ -24,7 +24,8 @@ router.post("/create", async (req, res) => {
       digital_services: digital_services,
       advertising_duration: advertising_duration,
     });
-    res.status(201).json({
+    console.log(newOrder);
+    res.json({
       status: "success",
     });
   } catch (err) {
