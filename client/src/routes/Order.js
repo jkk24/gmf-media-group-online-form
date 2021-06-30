@@ -214,17 +214,19 @@ const Order = () => {
                 />
                 <Field
                   component={CheckboxWithLabel}
+                  disabled
                   type="checkbox"
                   name="advertisingDuration"
                   value="custom"
-                  Label={{ label: "__ Issues" }}
+                  Label={{ label: "__ Issues (TODO)" }}
                 />
                 <Field
                   component={CheckboxWithLabel}
+                  disabled
                   type="checkbox"
                   name="advertisingDuration"
                   value="Sponsorship Event"
-                  Label={{ label: "Sponsorship Event" }}
+                  Label={{ label: "Sponsorship Event (TODO)" }}
                 />
               </CardContent>
             </Card>
