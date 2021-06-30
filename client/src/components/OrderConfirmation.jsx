@@ -46,12 +46,14 @@ const OrderConfirmation = (props) => {
   const [advertisingDurationChosen, setAdvertisingDurationChosen] = useState(
     []
   );
+  const [total, setTotal] = useState(null);
   useEffect(() => {
     const fetchData = () => {
       var tempPrintingOptionsChosen = [];
       var tempTypeOfAdChosen = [];
       var tempDigitalServicesChosen = [];
       var tempAdvertisingDurationChosen = [];
+      var tempTotal = 0;
       for (var i = 0; i < props.printingOptions.length; i++) {
         if (props.printingOptions[i] > 0) {
           tempPrintingOptionsChosen.push(
@@ -63,6 +65,7 @@ const OrderConfirmation = (props) => {
               props.printingOptions[i] * unit[i]
             )
           );
+          tempTotal = tempTotal + props.printingOptions[i] * unit[i];
         }
       }
       if (props.typeOfAd.length > 0) {
