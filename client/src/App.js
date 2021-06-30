@@ -26,11 +26,11 @@ function App() {
         if (Object.keys(response.data).length > 0) {
           setLoggedIn(true);
           setId(response.data.user_id);
-          setRole("Placeholder");
+          setRole(response.data.role);
           setEmail(response.data.email);
         } else {
           setLoggedIn(false);
-          setRole("None");
+          setRole(null);
           setId(null);
           setEmail(null);
         }
