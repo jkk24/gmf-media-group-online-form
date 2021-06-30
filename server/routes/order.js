@@ -52,6 +52,25 @@ router.post("/getUserPendingOrders", async (req, res) => {
   }
 });
 
+router.post("/getUserCompletedOrders", async (req, res) => {
+  try {
+    const getAllOrders = await order.findAll({
+      where: {
+        email: req.body.email,
+        status: "COMPLETED",
+      },
+      raw: true,
+    });
+    // console.log(getAllUsers);
+    res.status(200).json({
+      status: "success",
+      data: getAllOrders,
+    });
+  } catch (err) {
+    console.error(err.message);
+  }
+});
+
 router.get("/getPendingOrders", async (req, res) => {
   try {
     const getAllOrders = await order.findAll({
