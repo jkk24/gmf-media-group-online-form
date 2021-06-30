@@ -89,10 +89,10 @@ const Order = () => {
       }}
       validationSchema={schema}
       onSubmit={(values, { setSubmitting }, errors) => {
-        setTimeout(() => {
-          setSubmitting(false);
-          alert(JSON.stringify(values, null, 2));
-        }, 500);
+        // setTimeout(() => {
+        //   setSubmitting(false);
+        //   alert(JSON.stringify(values, null, 2));
+        // }, 500);
         setPrintingOptions(values.printingOptions);
         setTypeOfAd(values.typeOfAd);
         setDigitalServices(values.digitalServices);
@@ -240,17 +240,22 @@ const Order = () => {
                 <FormHelperText>{errors.advertisingDuration}</FormHelperText>
               </CardContent>
             </Card>
+            <Card>
+              <CardContent>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  disabled={isSubmitting}
+                  onClick={submitForm}
+                >
+                  Submit
+                </Button>
+              </CardContent>
+            </Card>
+            <br />
+            <br />
+            <br />
           </Container>
-          {isSubmitting && <LinearProgress />}
-          <br />
-          <Button
-            variant="contained"
-            color="primary"
-            disabled={isSubmitting}
-            onClick={submitForm}
-          >
-            Submit
-          </Button>
         </Form>
       )}
     </Formik>
