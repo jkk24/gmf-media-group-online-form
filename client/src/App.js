@@ -14,7 +14,8 @@ import TopNavBar from "./components/TopNavBar";
 import { AppContextProvider } from "./context/AppContext";
 
 function App() {
-  const { loggedIn, setLoggedIn, setRole, setId } = useContext(AuthContext);
+  const { loggedIn, setLoggedIn, setRole, setId, setEmail } =
+    useContext(AuthContext);
 
   useEffect(() => {
     // Define a function fetchData that calls APIs which is then called in useEffect
@@ -26,17 +27,19 @@ function App() {
           setLoggedIn(true);
           setId(response.data.user_id);
           setRole("Placeholder");
+          setEmail(response.data.email);
         } else {
           setLoggedIn(false);
           setRole("None");
           setId(null);
+          setEmail(null);
         }
       } catch (err) {
         console.log(err);
       }
     };
     fetchData();
-  }, [loggedIn, setLoggedIn, setRole, setId]);
+  }, [loggedIn, setLoggedIn, setRole, setId, setEmail]);
 
   return (
     <AppContextProvider>
