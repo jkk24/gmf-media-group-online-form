@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { Tabs, Tab, Container, Jumbotron, Form, Button } from "react-bootstrap";
-import PendingOrders from "../components/PendingOrders";
-import CompletedOrders from "../components/CompletedOrders";
+import UserCompletedOrders from "../components/UserCompletedOrders";
+import UserPendingOrders from "../components/UserPendingOrders";
 import AdminCompletedOrders from "../components/AdminCompletedOrders";
 import AdminPendingOrders from "../components/AdminPendingOrders";
 import UserList from "../components/UserList";
@@ -14,7 +14,7 @@ const Dashboard = () => {
   const handleSubmit = () => {
     history.push(`/order`);
   };
-  return role === "Placeholder" ? (
+  return role === "eholder" ? (
     <Container>
       <h1>Admin Dashboard</h1>
       <div>
@@ -68,50 +68,17 @@ const Dashboard = () => {
     </Container>
   ) : (
     <Container>
-      <h1>Dashboard</h1>
+      <h1>User Dashboard</h1>
       <div>
         <Tabs defaultActiveKey="pendingOrders" id="uncontrolled-tab">
           <Tab eventKey="pendingOrders" title="Pending Orders">
-            <PendingOrders />
+            <UserPendingOrders />
           </Tab>
           <Tab eventKey="completedOrders" title="Completed Orders">
-            <CompletedOrders />
+            <UserCompletedOrders />
           </Tab>
         </Tabs>
       </div>
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <Jumbotron fluid className="text-center">
-        <Container>
-          <h1>Place an order here!</h1>
-          <br />
-          <Form className="justify-content-center">
-            <Button variant="outline-primary">Order</Button>
-          </Form>
-        </Container>
-      </Jumbotron>
     </Container>
   );
 };
