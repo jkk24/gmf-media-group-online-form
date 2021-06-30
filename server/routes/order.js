@@ -51,6 +51,24 @@ router.get("/getPendingOrders", async (req, res) => {
   }
 });
 
+router.get("/getCompletedOrders", async (req, res) => {
+  try {
+    const getAllOrders = await order.findAll({
+      where: {
+        status: "COMPLETED",
+      },
+      raw: true,
+    });
+    // console.log(getAllUsers);
+    res.status(200).json({
+      status: "success",
+      data: getAllOrders,
+    });
+  } catch (err) {
+    console.error(err.message);
+  }
+});
+
 router.post("/complete", async (req, res) => {
   try {
     const orderResult = await order.update(
