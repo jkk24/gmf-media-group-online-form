@@ -10,6 +10,7 @@ import { AuthContext } from "./context/AuthContext";
 import "bootstrap/dist/css/bootstrap.min.css";
 import ConfirmEmail from "./routes/ConfirmEmail";
 import Order from "./routes/Order";
+import TopNavBar from "./components/TopNavBar";
 
 function App() {
   const { loggedIn, setLoggedIn, setRole, setId } = useContext(AuthContext);
@@ -36,20 +37,9 @@ function App() {
     fetchData();
   }, [loggedIn, setLoggedIn, setRole, setId]);
 
-  // Temp Logout Button
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const response = await UserAPI.get("/logout");
-      console.log(response.data);
-      setLoggedIn(false);
-    } catch (err) {
-      console.log(err);
-    }
-  };
   return (
     <div>
-      <button onClick={handleSubmit}>Logout</button>
+      <TopNavBar />
       <Switch>
         <Route path="/register" component={Register} />
         <Route path="/login" component={Login} />
