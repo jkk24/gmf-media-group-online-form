@@ -13,6 +13,7 @@ export const AppContextProvider = (props) => {
   const [typeOfAd, setTypeOfAd] = useState([]);
   const [digitalServices, setDigitalServices] = useState([]);
   const [advertisingDuration, setAdvertisingDuration] = useState([]);
+  const [user, setUser] = useState(null);
 
   return (
     <AppContext.Provider
@@ -27,6 +28,8 @@ export const AppContextProvider = (props) => {
         setDigitalServices,
         advertisingDuration,
         setAdvertisingDuration,
+        user,
+        setUser,
       }}
     >
       {props.children}

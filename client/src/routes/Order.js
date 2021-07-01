@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import * as yup from "yup";
 import { Formik, Form, Field } from "formik";
 import { Button } from "@material-ui/core";
@@ -20,6 +20,7 @@ import { FormHelperText } from "@material-ui/core";
 import { Select } from "formik-material-ui";
 import { CheckboxWithLabel } from "formik-material-ui";
 import { AppContext } from "../context/AppContext";
+import UserAPI from "../apis/UserAPI";
 
 const schema = yup.object().shape({
   //printingOptions: yup.array().min(1),
@@ -29,6 +30,10 @@ const schema = yup.object().shape({
     .max(1, "Please choose only one option."),
   digitalServices: yup.array().min(1, "Please choose at least one option."),
   typeOfAd: yup.array().min(1, "Please choose at least one option."),
+  user: yup
+    .string()
+    .email("Please choose a client.")
+    .required("Please choose a client."),
 });
 
 function createData(description, print, unit) {
@@ -79,30 +84,28 @@ const Order = () => {
     setDigitalServices,
     advertisingDuration,
     setAdvertisingDuration,
+    user,
+    setUser,
   } = useContext(AppContext);
-  // const [confirming, setConfirming] = useState(false);
-  // const [printingOptions, setPrintingOptions] = useState([
-  //   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-  // ]);
-  // const [typeOfAd, setTypeOfAd] = useState([]);
-  // const [digitalServices, setDigitalServices] = useState([]);
-  // const [advertisingDuration, setAdvertisingDuration] = useState([]);
 
+  const [userList, setUserList] = useState([]);
   useEffect(() => {
     // Define a function fetchData that calls APIs which is then called in useEffect
     const fetchData = async () => {
+      try {
+        const response = await UserAPI.get("/getAllUsers");
+        console.log(response.data.data);
+        setUserList(response.data.data);
+      } catch (err) {
+        console.log(err);
+      }
       setConfirming(false);
     };
     fetchData();
   }, [setConfirming]);
 
   return confirming === true ? (
-    <OrderConfirmation
-    // printingOptions={printingOptions}
-    // typeOfAd={typeOfAd}
-    // digitalServices={digitalServices}
-    // advertisingDuration={advertisingDuration}
-    />
+    <OrderConfirmation />
   ) : (
     <Formik
       initialValues={{
@@ -110,6 +113,7 @@ const Order = () => {
         typeOfAd: typeOfAd,
         digitalServices: digitalServices,
         advertisingDuration: advertisingDuration,
+        user: user,
       }}
       validationSchema={schema}
       onSubmit={(values, { setSubmitting }, errors) => {
@@ -121,12 +125,26 @@ const Order = () => {
         setTypeOfAd(values.typeOfAd);
         setDigitalServices(values.digitalServices);
         setAdvertisingDuration(values.advertisingDuration);
+        setUser(values.user);
         setConfirming(true);
       }}
     >
       {({ submitForm, isSubmitting, errors }) => (
         <Form>
           <Container>
+            <Card>
+              <CardHeader title="Type of AD" />
+              <CardContent>
+                <Field component={Select} name="user">
+                  {userList.map((user, index) => (
+                    <MenuItem key={index} value={user.email}>
+                      {user.email}
+                    </MenuItem>
+                  ))}
+                </Field>
+                <FormHelperText>{errors.user}</FormHelperText>
+              </CardContent>
+            </Card>
             <Card>
               <CardHeader title="Printing Options" />
               <CardContent>

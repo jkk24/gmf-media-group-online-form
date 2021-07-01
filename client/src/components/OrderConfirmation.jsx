@@ -50,6 +50,7 @@ const OrderConfirmation = () => {
     typeOfAd,
     digitalServices,
     advertisingDuration,
+    user,
   } = useContext(AppContext);
   const [printingOptionsChosen, setPrintingOptionsChosen] = useState([]);
   const [typeOfAdChosen, setTypeOfAdChosen] = useState([]);
@@ -182,7 +183,7 @@ const OrderConfirmation = () => {
     // console.log(total);
     try {
       const response = await OrderAPI.post("/create", {
-        email: "jkk24@njit.edu",
+        email: user,
         total: total,
         printing_options: printingOptionsChosen,
         type_of_ad: typeOfAdChosen,
