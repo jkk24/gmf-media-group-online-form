@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Table, Container } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import OrderAPI from "../apis/OrderAPI";
 
 const AdminCompletedOrders = () => {
@@ -54,7 +55,9 @@ const AdminCompletedOrders = () => {
                 <td>{formatDT(order.createdAt)}</td>
                 <td>{formatDT(order.updatedAt)}</td>
                 <td>{order.total}</td>
-                <td>View</td>
+                <td>
+                  <Link to={"/order/view/" + order.order_id}>View</Link>
+                </td>
                 <td>TODO</td>
                 <td style={{ color: "green" }}>{order.status}</td>
               </tr>

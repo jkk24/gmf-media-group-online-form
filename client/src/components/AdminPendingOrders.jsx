@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Table, Container, Button } from "react-bootstrap";
 import OrderAPI from "../apis/OrderAPI";
+import { Link } from "react-router-dom";
 
 const AdminPendingOrders = () => {
   const [orderList, setOrderList] = useState([]);
@@ -77,7 +78,9 @@ const AdminPendingOrders = () => {
                 <td>{order.order_id}</td>
                 <td>{formatDT(order.createdAt)}</td>
                 <td>{order.total}</td>
-                <td>View</td>
+                <td>
+                  <Link to={"/order/view/" + order.order_id}>View</Link>
+                </td>
                 <td>TODO</td>
                 <td style={{ color: "blue" }}>{order.status}</td>
               </tr>

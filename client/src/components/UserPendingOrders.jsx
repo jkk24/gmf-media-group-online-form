@@ -2,6 +2,7 @@ import React, { useEffect, useState, useContext } from "react";
 import { Table, Container } from "react-bootstrap";
 import OrderAPI from "../apis/OrderAPI";
 import { AuthContext } from "../context/AuthContext";
+import { Link } from "react-router-dom";
 
 const UserPendingOrders = () => {
   const { email } = useContext(AuthContext);
@@ -54,7 +55,9 @@ const UserPendingOrders = () => {
                 <td>{order.order_id}</td>
                 <td>{formatDT(order.createdAt)}</td>
                 <td>{order.total}</td>
-                <td>View</td>
+                <td>
+                  <Link to={"/order/view/" + order.order_id}>View</Link>
+                </td>
                 <td>TODO</td>
                 <td style={{ color: "blue" }}>{order.status}</td>
               </tr>
