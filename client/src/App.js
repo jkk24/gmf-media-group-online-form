@@ -47,13 +47,17 @@ function App() {
       <div>
         <TopNavBar />
         <Switch>
-          <Route exact path="/newOrder" component={Order} />
+          <ProtectedRoute exact path="/newOrder" component={Order} />
           <Route exact path="/register" component={Register} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/" component={Home} />
           <ProtectedRoute path="/dashboard" component={Dashboard} />
           <Route exact path="/confirmEmail/:userID" component={ConfirmEmail} />
-          <Route exact path="/order/view/:order_id" component={ViewForm} />
+          <ProtectedRoute
+            exact
+            path="/order/view/:order_id"
+            component={ViewForm}
+          />
         </Switch>
       </div>
     </AppContextProvider>
