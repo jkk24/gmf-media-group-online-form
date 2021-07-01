@@ -46,7 +46,7 @@ function App() {
       <div>
         <TopNavBar />
         <Switch>
-          <Route exact path="/order" component={Order} />
+          <Route exact path="/order" component={Login} />
           <Route exact path="/register" component={Register} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/" component={Home} />
