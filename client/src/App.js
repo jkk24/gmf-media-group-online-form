@@ -46,12 +46,12 @@ function App() {
       <div>
         <TopNavBar />
         <Switch>
-          <Route path="/register" component={Register} />
-          <Route path="/login" component={Login} />
+          <Route exact path="/order" component={Order} />
+          <Route exact path="/register" component={Register} />
+          <Route exact path="/login" component={Login} />
           <Route exact path="/" component={Home} />
           <ProtectedRoute path="/dashboard" component={Dashboard} />
-          <Route path="/confirmEmail/:userID" component={ConfirmEmail} />
-          <Route path="/order" component={Order} />
+          <Route exact path="/confirmEmail/:userID" component={ConfirmEmail} />
         </Switch>
       </div>
     </AppContextProvider>
