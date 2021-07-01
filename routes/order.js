@@ -123,4 +123,19 @@ router.post("/complete", async (req, res) => {
   }
 });
 
+router.post("/getOrderDetails", async (req, res) => {
+  try {
+    const result = await order.findOne({
+      where: { order_id: req.body.order_id },
+      raw: true,
+    });
+    res.json({
+      status: "success",
+      data: result,
+    });
+  } catch (err) {
+    res.send(err);
+  }
+});
+
 module.exports = router;

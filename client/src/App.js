@@ -12,6 +12,7 @@ import ConfirmEmail from "./routes/ConfirmEmail";
 import Order from "./routes/Order";
 import TopNavBar from "./components/TopNavBar";
 import { AppContextProvider } from "./context/AppContext";
+import ViewForm from "./routes/ViewForm";
 
 function App() {
   const { loggedIn, setLoggedIn, setRole, setId, setEmail } =
@@ -52,6 +53,7 @@ function App() {
           <Route exact path="/" component={Home} />
           <ProtectedRoute path="/dashboard" component={Dashboard} />
           <Route exact path="/confirmEmail/:userID" component={ConfirmEmail} />
+          <Route exact path="/order/view/:order_id" component={ViewForm} />
         </Switch>
       </div>
     </AppContextProvider>
