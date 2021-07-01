@@ -115,66 +115,6 @@ const OrderConfirmation = () => {
     fetchData();
   }, [printingOptions, typeOfAd, digitalServices, advertisingDuration]);
 
-  // useEffect(() => {
-  //   const fetchData = () => {
-  //     var tempPrintingOptionsChosen = [];
-  //     var tempTypeOfAdChosen = [];
-  //     var tempDigitalServicesChosen = [];
-  //     var tempAdvertisingDurationChosen = [];
-  //     var tempTotal = 0;
-  //     for (var i = 0; i < props.printingOptions.length; i++) {
-  //       if (props.printingOptions[i] > 0) {
-  //         tempPrintingOptionsChosen.push(
-  //           createData(
-  //             rows[i].description,
-  //             rows[i].print,
-  //             rows[i].unit,
-  //             props.printingOptions[i],
-  //             props.printingOptions[i] * unit[i]
-  //           )
-  //         );
-  //         tempTotal = tempTotal + props.printingOptions[i] * unit[i];
-  //       }
-  //     }
-  //     if (props.typeOfAd.length > 0) {
-  //       for (var j = 0; j < props.typeOfAd.length; j++) {
-  //         tempTypeOfAdChosen.push(props.typeOfAd[j]);
-  //       }
-  //     } else {
-  //       tempTypeOfAdChosen.push("You did not select any specific ad type.");
-  //     }
-  //     if (props.digitalServices.length > 0) {
-  //       for (var k = 0; k < props.digitalServices.length; k++) {
-  //         tempDigitalServicesChosen.push(props.digitalServices[k]);
-  //       }
-  //     } else {
-  //       tempDigitalServicesChosen.push(
-  //         "You did not select any digital services."
-  //       );
-  //     }
-  //     if (props.advertisingDuration.length > 0) {
-  //       for (var l = 0; l < props.advertisingDuration.length; l++) {
-  //         tempAdvertisingDurationChosen.push(props.advertisingDuration[l]);
-  //       }
-  //     } else {
-  //       tempAdvertisingDurationChosen.push(
-  //         "You did not select an advertising Duration."
-  //       );
-  //     }
-  //     setTotal(tempTotal * tempAdvertisingDurationChosen[0]);
-  //     setPrintingOptionsChosen(tempPrintingOptionsChosen);
-  //     setTypeOfAdChosen(tempTypeOfAdChosen);
-  //     setDigitalServicesChosen(tempDigitalServicesChosen);
-  //     setAdvertisingDurationChosen(tempAdvertisingDurationChosen);
-  //   };
-  //   fetchData();
-  // }, [
-  //   props.printingOptions,
-  //   props.typeOfAd,
-  //   props.digitalServices,
-  //   props.advertisingDuration,
-  // ]);
-
   const handleSubmit = async (e) => {
     // console.log(printingOptionsChosen);
     // console.log(typeOfAdChosen);
@@ -209,6 +149,16 @@ const OrderConfirmation = () => {
       <h1>Order Confirmation</h1>
       <Card>
         <CardContent>
+          <Accordion>
+            <AccordionSummary
+              expandIcon={<ExpandMoreIcon />}
+              aria-controls="panel2a-content"
+              id="panel2a-header"
+            >
+              <Typography>Client</Typography>
+            </AccordionSummary>
+            <AccordionDetails>{user}</AccordionDetails>
+          </Accordion>
           <Accordion>
             <AccordionSummary
               expandIcon={<ExpandMoreIcon />}
@@ -283,11 +233,7 @@ const OrderConfirmation = () => {
               <Typography>Advertising Duration</Typography>
             </AccordionSummary>
             <AccordionDetails>
-              {advertisingDurationChosen.map((duration, index) => (
-                <ol key={index}>
-                  <li>{duration}</li>
-                </ol>
-              ))}
+              {advertisingDurationChosen[0]} Issues
             </AccordionDetails>
           </Accordion>
         </CardContent>

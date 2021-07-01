@@ -84,7 +84,6 @@ const Order = () => {
     setDigitalServices,
     advertisingDuration,
     setAdvertisingDuration,
-    user,
     setUser,
   } = useContext(AppContext);
 
@@ -94,7 +93,7 @@ const Order = () => {
     const fetchData = async () => {
       try {
         const response = await UserAPI.get("/getAllUsers");
-        console.log(response.data.data);
+        //console.log(response.data.data);
         setUserList(response.data.data);
       } catch (err) {
         console.log(err);
@@ -113,7 +112,7 @@ const Order = () => {
         typeOfAd: typeOfAd,
         digitalServices: digitalServices,
         advertisingDuration: advertisingDuration,
-        user: user,
+        user: "",
       }}
       validationSchema={schema}
       onSubmit={(values, { setSubmitting }, errors) => {
@@ -133,7 +132,7 @@ const Order = () => {
         <Form>
           <Container>
             <Card>
-              <CardHeader title="Type of AD" />
+              <CardHeader title="Choose a Client" />
               <CardContent>
                 <Field component={Select} name="user">
                   {userList.map((user, index) => (
