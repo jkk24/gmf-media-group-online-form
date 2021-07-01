@@ -77,7 +77,7 @@ const AdminPendingOrders = () => {
                 <td>{order.order_id}</td>
                 <td>{formatDT(order.createdAt)}</td>
                 <td>{order.total}</td>
-                <td>View Form Link</td>
+                <td>View</td>
                 <td>TODO</td>
                 <td style={{ color: "blue" }}>{order.status}</td>
               </tr>
