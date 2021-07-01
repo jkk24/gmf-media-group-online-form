@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState } from "react";
 import Accordion from "@material-ui/core/Accordion";
 import AccordionSummary from "@material-ui/core/AccordionSummary";
 import AccordionDetails from "@material-ui/core/AccordionDetails";
@@ -14,14 +14,17 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
-import Button from "@material-ui/core/Button";
 import OrderAPI from "../apis/OrderAPI";
-import { AppContext } from "../context/AppContext";
-import { useHistory, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 const ViewForm = () => {
   const { order_id } = useParams();
-  const [order, setOrder] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [email, setEmail] = useState("");
+  const [printingOptions, setPrintingOptions] = useState([]);
+  const [typeOfAd, setTypeOfAd] = useState([]);
+  const [digitalServices, setDigitalServices] = useState([]);
+  const [advertisingDuration, setAdvertisingDuration] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -29,16 +32,24 @@ const ViewForm = () => {
         const response = await OrderAPI.post("/getOrderDetails", {
           order_id: order_id,
         });
-        console.log(response.data.data);
-        setOrder(response.data.data);
+        setLoading(true);
+        //console.log(response.data.data);
+        if (response.data.status === "success") {
+          setLoading(false);
+          setEmail(response.data.data.email);
+          setPrintingOptions(response.data.data.printing_options);
+          setTypeOfAd(response.data.data.type_of_ad);
+          setDigitalServices(response.data.data.digital_services);
+          setAdvertisingDuration(response.data.data.advertising_duration);
+        }
       } catch (err) {
         console.log(err);
       }
     };
     fetchData();
   }, [order_id]);
-
-  return (
+  //return <h1>TESTING</h1>;
+  return loading === false ? (
     <Container>
       <h1>(TODO: Convert Details Into Form)</h1>
       <Card>
@@ -51,7 +62,7 @@ const ViewForm = () => {
             >
               <Typography>Client</Typography>
             </AccordionSummary>
-            <AccordionDetails>{order.email}</AccordionDetails>
+            <AccordionDetails>{email}</AccordionDetails>
           </Accordion>
           <Accordion>
             <AccordionSummary
@@ -74,7 +85,7 @@ const ViewForm = () => {
                     </TableRow>
                   </TableHead>
                   <TableBody>
-                    {order.printing_options.map((option, index) => (
+                    {printingOptions.map((option, index) => (
                       <TableRow key={index}>
                         <TableCell>{option.description}</TableCell>
                         <TableCell>{option.print}</TableCell>
@@ -97,7 +108,7 @@ const ViewForm = () => {
               <Typography>Type of Ad</Typography>
             </AccordionSummary>
             <AccordionDetails>
-              {order.type_of_ad.map((type, index) => (
+              {typeOfAd.map((type, index) => (
                 <ol key={index}>
                   <li>{type}</li>
                 </ol>
@@ -113,7 +124,7 @@ const ViewForm = () => {
               <Typography>Digital Services</Typography>
             </AccordionSummary>
             <AccordionDetails>
-              {order.digital_services.map((service, index) => (
+              {digitalServices.map((service, index) => (
                 <ol key={index}>
                   <li>{service}</li>
                 </ol>
@@ -128,13 +139,13 @@ const ViewForm = () => {
             >
               <Typography>Advertising Duration</Typography>
             </AccordionSummary>
-            <AccordionDetails>
-              {order.advertising_duration[0]} Issues
-            </AccordionDetails>
+            <AccordionDetails>{advertisingDuration[0]} Issues</AccordionDetails>
           </Accordion>
         </CardContent>
       </Card>
     </Container>
+  ) : (
+    <h1>Loading...</h1>
   );
 };
 
