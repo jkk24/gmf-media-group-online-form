@@ -4,7 +4,7 @@ const { user } = require("../db/models");
 const passport = require("passport");
 const bcrypt = require("bcryptjs");
 const nodemailer = require("nodemailer");
-
+require("dotenv").config;
 // gmail transporter
 const transporter = nodemailer.createTransport({
   service: "gmail",
@@ -19,7 +19,8 @@ router.get("/", (req, res) => {
 });
 
 router.post("/create", async (req, res) => {
-  const base = "http://localhost:3000/confirmEmail/";
+  const base =
+    process.env.CONFIRM_EMAIL_URL || "http://localhost:3000/confirmEmail/";
   const {
     email,
     password,
