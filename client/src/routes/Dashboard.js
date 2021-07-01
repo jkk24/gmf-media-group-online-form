@@ -12,7 +12,7 @@ const Dashboard = () => {
   const { role } = useContext(AuthContext);
   const history = useHistory();
   const handleSubmit = () => {
-    history.push(`/order`);
+    history.push("/newOrder");
   };
   return role === "admin" ? (
     <Container>
