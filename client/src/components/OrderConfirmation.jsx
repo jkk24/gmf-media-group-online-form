@@ -108,7 +108,7 @@ const OrderConfirmation = () => {
       if (webDesignComments.length > 0) {
         setWebDesignCommentsChosen(webDesignComments);
         setWebDesignTotalChosen(webDesignTotal);
-        tempDesignTotal = tempDesignTotal + webDesignTotal;
+        tempDesignTotal = parseFloat(webDesignTotal);
       } else {
         setWebDesignCommentsChosen("No comments.");
         setWebDesignTotalChosen(0);
@@ -116,7 +116,7 @@ const OrderConfirmation = () => {
       if (webHostingComments.length > 0) {
         setWebHostingCommentsChosen(webHostingComments);
         setWebHostingTotalChosen(webHostingTotal);
-        tempHostingTotal = tempHostingTotal + webHostingTotal;
+        tempHostingTotal = parseFloat(webHostingTotal);
       } else {
         setWebHostingCommentsChosen("No comments.");
         setWebHostingTotalChosen(0);
@@ -132,7 +132,7 @@ const OrderConfirmation = () => {
               printingOptions[i] * unit[i]
             )
           );
-          tempTotal = tempTotal + printingOptions[i] * unit[i];
+          tempTotal = tempTotal + parseFloat(printingOptions[i]) * unit[i];
         }
       }
       for (var m = 0; m < onlineAdvertising.length; m++) {
@@ -177,6 +177,7 @@ const OrderConfirmation = () => {
         (tempTotal + tempDesignTotal + tempHostingTotal) *
           tempAdvertisingDurationChosen[0]
       );
+      console.log(tempHostingTotal + tempDesignTotal);
       setPrintingOptionsChosen(tempPrintingOptionsChosen);
       setOnlineAdvertisingChosen(tempOnlineAdvertisingChosen);
       setOnlineTypeChosen(tempOnlineTypeChosen);
@@ -201,7 +202,7 @@ const OrderConfirmation = () => {
     // console.log(printingOptionsChosen);
     // console.log(digitalServicesChosen);
     // console.log(advertisingDurationChosen);
-    // console.log(total);
+    console.log(total);
     try {
       const response = await OrderAPI.post("/create", {
         email: user,
@@ -217,7 +218,7 @@ const OrderConfirmation = () => {
         web_hosting_total: webHostingTotalChosen,
         comments: commentsChosen,
       });
-      //console.log(response.data.status);
+      console.log(response);
       if (response.data.status === "success") {
         alert("Your order has been successfully submitted!");
         history.push("/dashboard");
