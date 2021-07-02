@@ -98,6 +98,8 @@ const OrderConfirmation = () => {
       var tempDigitalServicesChosen = [];
       var tempAdvertisingDurationChosen = [];
       var tempTotal = 0;
+      var tempDesignTotal = 0;
+      var tempHostingTotal = 0;
       if (comments.length > 0) {
         setCommentsChosen(comments);
       } else {
@@ -106,6 +108,7 @@ const OrderConfirmation = () => {
       if (webDesignComments.length > 0) {
         setWebDesignCommentsChosen(webDesignComments);
         setWebDesignTotalChosen(webDesignTotal);
+        tempDesignTotal = tempDesignTotal + webDesignTotal;
       } else {
         setWebDesignCommentsChosen("No comments.");
         setWebDesignTotalChosen(0);
@@ -113,6 +116,7 @@ const OrderConfirmation = () => {
       if (webHostingComments.length > 0) {
         setWebHostingCommentsChosen(webHostingComments);
         setWebHostingTotalChosen(webHostingTotal);
+        tempHostingTotal = tempHostingTotal + webHostingTotal;
       } else {
         setWebHostingCommentsChosen("No comments.");
         setWebHostingTotalChosen(0);
@@ -170,7 +174,7 @@ const OrderConfirmation = () => {
         );
       }
       setTotal(
-        (tempTotal + webDesignTotalChosen + webHostingTotalChosen) *
+        (tempTotal + tempDesignTotal + tempHostingTotal) *
           tempAdvertisingDurationChosen[0]
       );
       setPrintingOptionsChosen(tempPrintingOptionsChosen);
