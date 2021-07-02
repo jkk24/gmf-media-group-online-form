@@ -2,9 +2,11 @@ import React, { useEffect, useState, useContext } from "react";
 import { Table, Container, Button } from "react-bootstrap";
 import OrderAPI from "../apis/OrderAPI";
 import { AuthContext } from "../context/AuthContext";
+import { useHistory } from "react-router-dom";
 import { Link } from "react-router-dom";
 
 const UserPendingOrders = () => {
+  let history = useHistory();
   const { email } = useContext(AuthContext);
   const [orderList, setOrderList] = useState([]);
 
@@ -26,17 +28,10 @@ const UserPendingOrders = () => {
         order_id: e.target.id,
       });
       if (response === "success") {
-        try {
-          const response = await OrderAPI.post("/getUserPendingOrders", {
-            email: email,
-          });
-          console.log(response.data.data);
-          setOrderList(response.data.data);
-        } catch (err) {
-          console.log(err);
-        }
+        history.push("/dashboard");
+      } else {
+        history.push("/dashboard");
       }
-      // console.log(response);
     } catch (err) {
       console.log(err);
     }
@@ -79,7 +74,7 @@ const UserPendingOrders = () => {
               element = (
                 <td>
                   <Button id={order.order_id} onClick={handleApprove}>
-                    Complete
+                    Approve
                   </Button>
                 </td>
               );
