@@ -18,6 +18,10 @@ export const AppContextProvider = (props) => {
     0, 0, 0, 0, 0, 0, 0, 0,
   ]);
   const [onlineType, setOnlineType] = useState([]);
+  const [webDesignComments, setWebDesignComments] = useState("");
+  const [webHostingComments, setWebHostingComments] = useState("");
+  const [webDesignTotal, setWebDesignTotal] = useState(null);
+  const [webHostingTotal, setWebHostingTotal] = useState(null);
 
   return (
     <AppContext.Provider
@@ -38,6 +42,14 @@ export const AppContextProvider = (props) => {
         setOnlineAdvertising,
         onlineType,
         setOnlineType,
+        webDesignComments,
+        setWebDesignComments,
+        webHostingComments,
+        setWebHostingComments,
+        webDesignTotal,
+        setWebDesignTotal,
+        webHostingTotal,
+        setWebHostingTotal,
       }}
     >
       {props.children}

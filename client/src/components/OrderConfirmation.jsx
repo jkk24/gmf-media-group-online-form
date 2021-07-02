@@ -68,6 +68,10 @@ const OrderConfirmation = () => {
     advertisingDuration,
     user,
     onlineAdvertising,
+    webDesignComments,
+    webHostingComments,
+    webDesignTotal,
+    webHostingTotal,
   } = useContext(AppContext);
   const [printingOptionsChosen, setPrintingOptionsChosen] = useState([]);
   const [onlineTypeChosen, setOnlineTypeChosen] = useState([]);
@@ -77,8 +81,14 @@ const OrderConfirmation = () => {
   );
   const [onlineAdvertisingChosen, setOnlineAdvertisingChosen] = useState([]);
   const [total, setTotal] = useState(null);
+  const [webDesignCommentsChosen, setWebDesignCommentsChosen] = useState(null);
+  const [webDesignTotalChosen, setWebDesignTotalChosen] = useState(null);
+  const [webHostingCommentsChosen, setWebHostingCommentsChosen] =
+    useState(null);
+  const [webHostingTotalChosen, setWebHostingTotalChosen] = useState(null);
 
   useEffect(() => {
+    console.log(webDesignComments);
     const fetchData = () => {
       var tempPrintingOptionsChosen = [];
       var tempOnlineAdvertisingChosen = [];
@@ -86,6 +96,20 @@ const OrderConfirmation = () => {
       var tempDigitalServicesChosen = [];
       var tempAdvertisingDurationChosen = [];
       var tempTotal = 0;
+      if (webDesignComments.length > 0) {
+        setWebDesignCommentsChosen(webDesignComments);
+        setWebDesignTotalChosen(webDesignTotal);
+      } else {
+        setWebDesignCommentsChosen("No comments.");
+        setWebDesignTotalChosen(0);
+      }
+      if (webHostingComments.length > 0) {
+        setWebHostingCommentsChosen(webHostingComments);
+        setWebHostingTotalChosen(webHostingTotal);
+      } else {
+        setWebHostingCommentsChosen("No comments.");
+        setWebHostingTotalChosen(0);
+      }
       for (var i = 0; i < printingOptions.length; i++) {
         if (printingOptions[i] > 0) {
           tempPrintingOptionsChosen.push(
@@ -152,6 +176,10 @@ const OrderConfirmation = () => {
     digitalServices,
     advertisingDuration,
     onlineAdvertising,
+    webDesignComments,
+    webDesignTotal,
+    webHostingComments,
+    webHostingTotal,
   ]);
 
   const handleSubmit = async (e) => {
@@ -278,11 +306,29 @@ const OrderConfirmation = () => {
               <Typography>Digital Services</Typography>
             </AccordionSummary>
             <AccordionDetails>
-              {digitalServicesChosen.map((service, index) => (
-                <ol key={index}>
-                  <li>{service}</li>
-                </ol>
-              ))}
+              <Container>
+                {digitalServicesChosen.map((service, index) => (
+                  <ol key={index}>
+                    <li>{service}</li>
+                  </ol>
+                ))}
+                <Typography variant="h6" gutterBottom>
+                  Web Design Comments:
+                </Typography>
+                <Typography gutterBottom>{webDesignCommentsChosen}</Typography>
+                <Typography variant="h6" gutterBottom>
+                  Web Design Total ($):
+                </Typography>
+                <Typography gutterBottom>{webDesignTotalChosen}</Typography>
+                <Typography variant="h6" gutterBottom>
+                  Web Hosting Comments:
+                </Typography>
+                <Typography gutterBottom>{webHostingCommentsChosen}</Typography>
+                <Typography variant="h6" gutterBottom>
+                  Web Hosting Total ($):
+                </Typography>
+                <Typography gutterBottom>{webHostingTotalChosen}</Typography>
+              </Container>
             </AccordionDetails>
           </Accordion>
           <Accordion>

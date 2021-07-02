@@ -18,7 +18,7 @@ import OrderConfirmation from "../components/OrderConfirmation";
 import { FormHelperText } from "@material-ui/core";
 
 import { Select } from "formik-material-ui";
-import { CheckboxWithLabel } from "formik-material-ui";
+import { CheckboxWithLabel, TextField } from "formik-material-ui";
 import { AppContext } from "../context/AppContext";
 import UserAPI from "../apis/UserAPI";
 
@@ -96,8 +96,8 @@ const Order = () => {
     setConfirming,
     printingOptions,
     setPrintingOptions,
-    typeOfAd,
-    setTypeOfAd,
+    // typeOfAd,
+    // setTypeOfAd,
     digitalServices,
     setDigitalServices,
     advertisingDuration,
@@ -107,6 +107,14 @@ const Order = () => {
     setOnlineAdvertising,
     onlineType,
     setOnlineType,
+    webDesignComments,
+    setWebDesignComments,
+    webHostingComments,
+    setWebHostingComments,
+    webDesignTotal,
+    setWebDesignTotal,
+    webHostingTotal,
+    setWebHostingTotal,
   } = useContext(AppContext);
 
   const [userList, setUserList] = useState([]);
@@ -131,30 +139,37 @@ const Order = () => {
     <Formik
       initialValues={{
         printingOptions: printingOptions,
-        typeOfAd: typeOfAd,
+        // typeOfAd: typeOfAd,
         digitalServices: digitalServices,
         advertisingDuration: advertisingDuration,
         user: "",
         onlineAdvertising: onlineAdvertising,
         onlineType: onlineType,
+        webDesignComments: webDesignComments,
+        webHostingComments: webHostingComments,
+        webDesignTotal: webDesignTotal,
+        webHostingTotal: webHostingTotal,
       }}
       validationSchema={schema}
       onSubmit={(values, { setSubmitting }, errors) => {
-        // setTimeout(() => {
-        //   setSubmitting(false);
-        //   alert(JSON.stringify(values, null, 2));
-        // }, 500);
+        console.log(values.webDesignComments);
+        console.log(values.webDesignTotal);
+        console.log(values.webHostingComments);
         setPrintingOptions(values.printingOptions);
-        setTypeOfAd(values.typeOfAd);
+        // setTypeOfAd(values.typeOfAd);
         setDigitalServices(values.digitalServices);
         setAdvertisingDuration(values.advertisingDuration);
         setUser(values.user);
         setOnlineAdvertising(values.onlineAdvertising);
         setOnlineType(values.onlineType);
+        setWebDesignComments(values.webDesignComments);
+        setWebHostingComments(values.webHostingComments);
+        setWebDesignTotal(values.webDesignTotal);
+        setWebHostingTotal(values.webHostingTotal);
         setConfirming(true);
       }}
     >
-      {({ submitForm, isSubmitting, errors }) => (
+      {({ submitForm, isSubmitting, errors, handleChange }) => (
         <Form>
           <Container>
             <Card>
@@ -322,6 +337,46 @@ const Order = () => {
                   />
                 ))}
                 <FormHelperText>{errors.digitalServices}</FormHelperText>
+                <Card>
+                  <CardContent>
+                    <Field
+                      component={TextField}
+                      name="webDesignComments"
+                      id="webDesignComments"
+                      label="Web Design"
+                      multiline
+                      rows={4}
+                      variant="outlined"
+                      fullWidth
+                    />
+                    <Field
+                      component={TextField}
+                      name="webDesignTotal"
+                      id="webDesignTotal"
+                      label="Web Design Total ($)"
+                    />
+                  </CardContent>
+                </Card>
+                <Card>
+                  <CardContent>
+                    <Field
+                      component={TextField}
+                      name="webHostingComments"
+                      id="webHostingComments"
+                      label="Web Hosting"
+                      multiline
+                      rows={4}
+                      variant="outlined"
+                      fullWidth
+                    />
+                    <Field
+                      component={TextField}
+                      name="webHostingTotal"
+                      id="webHostingTotal"
+                      label="Web Hosting Total ($)"
+                    />
+                  </CardContent>
+                </Card>
               </CardContent>
             </Card>
             <Card>
