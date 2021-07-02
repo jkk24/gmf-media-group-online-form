@@ -25,6 +25,7 @@ const ViewForm = () => {
   const [digitalServices, setDigitalServices] = useState([]);
   const [advertisingDuration, setAdvertisingDuration] = useState([]);
   const [onlineAdvertising, setOnlineAdvertising] = useState([]);
+  const [onlineType, setOnlineType] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -40,6 +41,7 @@ const ViewForm = () => {
           setPrintingOptions(response.data.data.printing_options);
           setDigitalServices(response.data.data.digital_services);
           setAdvertisingDuration(response.data.data.advertising_duration);
+          setOnlineType(response.data.data.online_type);
           setOnlineAdvertising(response.data.data.online_advertising);
         }
       } catch (err) {
@@ -108,6 +110,7 @@ const ViewForm = () => {
               <Typography>Online Advertising</Typography>
             </AccordionSummary>
             <AccordionDetails>
+              <h1>{onlineType[0]}</h1>
               <TableContainer component={Paper}>
                 <Table size="small" aria-label="simple table">
                   <TableHead>
