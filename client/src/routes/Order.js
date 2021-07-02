@@ -115,6 +115,8 @@ const Order = () => {
     setWebDesignTotal,
     webHostingTotal,
     setWebHostingTotal,
+    comments,
+    setComments,
   } = useContext(AppContext);
 
   const [userList, setUserList] = useState([]);
@@ -149,6 +151,7 @@ const Order = () => {
         webHostingComments: webHostingComments,
         webDesignTotal: webDesignTotal,
         webHostingTotal: webHostingTotal,
+        comments: comments,
       }}
       validationSchema={schema}
       onSubmit={(values, { setSubmitting }, errors) => {
@@ -166,6 +169,7 @@ const Order = () => {
         setWebHostingComments(values.webHostingComments);
         setWebDesignTotal(values.webDesignTotal);
         setWebHostingTotal(values.webHostingTotal);
+        setComments(values.comments);
         setConfirming(true);
       }}
     >
@@ -434,6 +438,21 @@ const Order = () => {
                   Label={{ label: "Sponsorship Event (TODO)" }}
                 />
                 <FormHelperText>{errors.advertisingDuration}</FormHelperText>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardHeader title="Additional Comments" />
+              <CardContent>
+                <Field
+                  component={TextField}
+                  name="comments"
+                  id="comments"
+                  label="Comments"
+                  multiline
+                  rows={4}
+                  variant="outlined"
+                  fullWidth
+                />
               </CardContent>
             </Card>
             <Card>

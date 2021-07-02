@@ -22,6 +22,7 @@ export const AppContextProvider = (props) => {
   const [webHostingComments, setWebHostingComments] = useState("");
   const [webDesignTotal, setWebDesignTotal] = useState(null);
   const [webHostingTotal, setWebHostingTotal] = useState(null);
+  const [comments, setComments] = useState("");
 
   return (
     <AppContext.Provider
@@ -50,6 +51,8 @@ export const AppContextProvider = (props) => {
         setWebDesignTotal,
         webHostingTotal,
         setWebHostingTotal,
+        comments,
+        setComments,
       }}
     >
       {props.children}

@@ -72,6 +72,7 @@ const OrderConfirmation = () => {
     webHostingComments,
     webDesignTotal,
     webHostingTotal,
+    comments,
   } = useContext(AppContext);
   const [printingOptionsChosen, setPrintingOptionsChosen] = useState([]);
   const [onlineTypeChosen, setOnlineTypeChosen] = useState([]);
@@ -86,6 +87,7 @@ const OrderConfirmation = () => {
   const [webHostingCommentsChosen, setWebHostingCommentsChosen] =
     useState(null);
   const [webHostingTotalChosen, setWebHostingTotalChosen] = useState(null);
+  const [commentsChosen, setCommentsChosen] = useState(null);
 
   useEffect(() => {
     console.log(webDesignComments);
@@ -96,6 +98,11 @@ const OrderConfirmation = () => {
       var tempDigitalServicesChosen = [];
       var tempAdvertisingDurationChosen = [];
       var tempTotal = 0;
+      if (comments.length > 0) {
+        setCommentsChosen(comments);
+      } else {
+        setCommentsChosen("No additional comments.");
+      }
       if (webDesignComments.length > 0) {
         setWebDesignCommentsChosen(webDesignComments);
         setWebDesignTotalChosen(webDesignTotal);
@@ -341,6 +348,20 @@ const OrderConfirmation = () => {
             </AccordionSummary>
             <AccordionDetails>
               {advertisingDurationChosen[0]} Issues
+            </AccordionDetails>
+          </Accordion>
+          <Accordion>
+            <AccordionSummary
+              expandIcon={<ExpandMoreIcon />}
+              aria-controls="panel2a-content"
+              id="panel2a-header"
+            >
+              <Typography>Additional Comments</Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              <Container>
+                <Typography gutterBottom>{commentsChosen}</Typography>
+              </Container>
             </AccordionDetails>
           </Accordion>
         </CardContent>
