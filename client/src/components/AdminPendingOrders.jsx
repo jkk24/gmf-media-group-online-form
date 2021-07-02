@@ -86,7 +86,7 @@ const AdminPendingOrders = () => {
                 <td>{index}</td>
                 {element}
                 <td>{order.email}</td>
-                <td>{order.order_number}</td>
+                <td>{order.order_number + 1957}</td>
                 <td>{formatDT(order.createdAt)}</td>
                 <td>{order.total}</td>
                 <td>
