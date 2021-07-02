@@ -14,6 +14,7 @@ router.post("/create", async (req, res) => {
     type_of_ad,
     digital_services,
     advertising_duration,
+    online_advertising,
   } = req.body;
   try {
     const newOrder = await order.create({
@@ -23,6 +24,7 @@ router.post("/create", async (req, res) => {
       type_of_ad: type_of_ad,
       digital_services: digital_services,
       advertising_duration: advertising_duration,
+      online_advertising: online_advertising,
     });
     console.log(newOrder);
     res.json({

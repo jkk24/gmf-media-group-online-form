@@ -168,6 +168,7 @@ const OrderConfirmation = () => {
         type_of_ad: typeOfAdChosen,
         digital_services: digitalServicesChosen,
         advertising_duration: advertisingDurationChosen,
+        online_advertising: onlineAdvertisingChosen,
       });
       //console.log(response.data.status);
       if (response.data.status === "success") {
@@ -239,7 +240,7 @@ const OrderConfirmation = () => {
               aria-controls="panel1a-content"
               id="panel1a-header"
             >
-              <Typography>Print Advertising</Typography>
+              <Typography>Online Advertising</Typography>
             </AccordionSummary>
             <AccordionDetails>
               <TableContainer component={Paper}>

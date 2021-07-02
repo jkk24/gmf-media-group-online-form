@@ -31,6 +31,10 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.JSONB,
       allowNull: false,
     },
+    online_advertising: {
+      type: DataTypes.JSONB,
+      allowNull: false,
+    },
     type_of_ad: {
       type: DataTypes.ARRAY(DataTypes.STRING),
       allowNull: false,
