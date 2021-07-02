@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
-import { Table, Container } from "react-bootstrap";
+import { Table, Container, Button } from "react-bootstrap";
 import OrderAPI from "../apis/OrderAPI";
 import { AuthContext } from "../context/AuthContext";
 import { Link } from "react-router-dom";
@@ -17,6 +17,29 @@ const UserPendingOrders = () => {
       hour: "2-digit",
       minute: "2-digit",
     }).format(dt);
+  };
+
+  const handleApprove = async (e) => {
+    //console.log(e.target.id);
+    try {
+      const response = await OrderAPI.post("/approve", {
+        order_id: e.target.id,
+      });
+      if (response === "success") {
+        try {
+          const response = await OrderAPI.post("/getUserPendingOrders", {
+            email: email,
+          });
+          console.log(response.data.data);
+          setOrderList(response.data.data);
+        } catch (err) {
+          console.log(err);
+        }
+      }
+      // console.log(response);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   useEffect(() => {
@@ -39,6 +62,7 @@ const UserPendingOrders = () => {
         <thead>
           <tr>
             <th>#</th>
+            <th>Approval Status</th>
             <th>Order Number</th>
             <th>Date Created</th>
             <th>Order Total ($)</th>
@@ -49,9 +73,23 @@ const UserPendingOrders = () => {
         </thead>
         <tbody>
           {orderList.map((order, index) => {
+            const status = order.user_approval;
+            let element = <td></td>;
+            if (status === "false") {
+              element = (
+                <td>
+                  <Button id={order.order_id} onClick={handleApprove}>
+                    Complete
+                  </Button>
+                </td>
+              );
+            } else {
+              element = <td style={{ color: "green" }}>APPROVED</td>;
+            }
             return (
               <tr key={index}>
                 <td>{index}</td>
+                {element}
                 <td>{order.order_id}</td>
                 <td>{formatDT(order.createdAt)}</td>
                 <td>{order.total}</td>

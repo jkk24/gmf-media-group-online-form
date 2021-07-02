@@ -18,7 +18,7 @@ const AdminPendingOrders = () => {
   };
 
   const handleApprove = async (e) => {
-    console.log(e.target.id);
+    //console.log(e.target.id);
     try {
       await OrderAPI.post("/complete", {
         order_id: e.target.id,
@@ -40,7 +40,7 @@ const AdminPendingOrders = () => {
     const fetchData = async () => {
       try {
         const response = await OrderAPI.get("getPendingOrders");
-        console.log(response.data.data);
+        //console.log(response.data.data);
         setOrderList(response.data.data);
       } catch (err) {
         console.log(err);
@@ -54,7 +54,7 @@ const AdminPendingOrders = () => {
         <thead>
           <tr>
             <th>#</th>
-            <th>Complete Order (Button)</th>
+            <th>Complete Order</th>
             <th>Email</th>
             <th>Order Number</th>
             <th>Date Created</th>
@@ -66,14 +66,25 @@ const AdminPendingOrders = () => {
         </thead>
         <tbody>
           {orderList.map((order, index) => {
-            return (
-              <tr key={index}>
-                <td>{index}</td>
+            const status = order.user_approval;
+            let element = <td></td>;
+            if (status === "true") {
+              element = (
                 <td>
                   <Button id={order.order_id} onClick={handleApprove}>
                     Complete
                   </Button>
                 </td>
+              );
+            } else {
+              element = (
+                <td style={{ color: "red" }}>AWAITING USER APPROVAL</td>
+              );
+            }
+            return (
+              <tr key={index}>
+                <td>{index}</td>
+                {element}
                 <td>{order.email}</td>
                 <td>{order.order_id}</td>
                 <td>{formatDT(order.createdAt)}</td>
