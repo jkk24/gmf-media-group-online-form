@@ -88,7 +88,6 @@ const DigitalServices = [
   "Ad Words",
   "Video",
   "Link Building",
-  "Ad Banners",
   "Branding",
 ];
 
