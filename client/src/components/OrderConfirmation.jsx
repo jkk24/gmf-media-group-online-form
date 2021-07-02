@@ -164,7 +164,7 @@ const OrderConfirmation = () => {
         email: user,
         total: total,
         printing_options: printingOptionsChosen,
-        online_type: onlineType,
+        online_type: onlineTypeChosen,
         digital_services: digitalServicesChosen,
         advertising_duration: advertisingDurationChosen,
         online_advertising: onlineAdvertisingChosen,
