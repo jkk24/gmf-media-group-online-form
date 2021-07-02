@@ -21,7 +21,7 @@ const AdminCompletedOrders = () => {
     const fetchData = async () => {
       try {
         const response = await OrderAPI.get("getCompletedOrders");
-        console.log(response.data.data);
+        //console.log(response.data.data);
         setOrderList(response.data.data);
       } catch (err) {
         console.log(err);
