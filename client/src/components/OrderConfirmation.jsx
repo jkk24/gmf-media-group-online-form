@@ -63,14 +63,14 @@ const OrderConfirmation = () => {
   const {
     setConfirming,
     printingOptions,
-    typeOfAd,
+    onlineType,
     digitalServices,
     advertisingDuration,
     user,
     onlineAdvertising,
   } = useContext(AppContext);
   const [printingOptionsChosen, setPrintingOptionsChosen] = useState([]);
-  const [typeOfAdChosen, setTypeOfAdChosen] = useState([]);
+  const [onlineTypeChosen, setOnlineTypeChosen] = useState([]);
   const [digitalServicesChosen, setDigitalServicesChosen] = useState([]);
   const [advertisingDurationChosen, setAdvertisingDurationChosen] = useState(
     []
@@ -82,7 +82,7 @@ const OrderConfirmation = () => {
     const fetchData = () => {
       var tempPrintingOptionsChosen = [];
       var tempOnlineAdvertisingChosen = [];
-      var tempTypeOfAdChosen = [];
+      var tempOnlineTypeChosen = [];
       var tempDigitalServicesChosen = [];
       var tempAdvertisingDurationChosen = [];
       var tempTotal = 0;
@@ -113,12 +113,12 @@ const OrderConfirmation = () => {
           );
         }
       }
-      if (typeOfAd.length > 0) {
-        for (var j = 0; j < typeOfAd.length; j++) {
-          tempTypeOfAdChosen.push(typeOfAd[j]);
+      if (onlineType.length > 0) {
+        for (var j = 0; j < onlineType.length; j++) {
+          tempOnlineTypeChosen.push(onlineType[j]);
         }
       } else {
-        tempTypeOfAdChosen.push("You did not select any specific ad type.");
+        tempOnlineTypeChosen.push("You did not select any specific ad type.");
       }
       if (digitalServices.length > 0) {
         for (var k = 0; k < digitalServices.length; k++) {
@@ -141,14 +141,14 @@ const OrderConfirmation = () => {
       setTotal(tempTotal * tempAdvertisingDurationChosen[0]);
       setPrintingOptionsChosen(tempPrintingOptionsChosen);
       setOnlineAdvertisingChosen(tempOnlineAdvertisingChosen);
-      setTypeOfAdChosen(tempTypeOfAdChosen);
+      setOnlineTypeChosen(tempOnlineTypeChosen);
       setDigitalServicesChosen(tempDigitalServicesChosen);
       setAdvertisingDurationChosen(tempAdvertisingDurationChosen);
     };
     fetchData();
   }, [
     printingOptions,
-    typeOfAd,
+    onlineType,
     digitalServices,
     advertisingDuration,
     onlineAdvertising,
@@ -156,7 +156,6 @@ const OrderConfirmation = () => {
 
   const handleSubmit = async (e) => {
     // console.log(printingOptionsChosen);
-    // console.log(typeOfAdChosen);
     // console.log(digitalServicesChosen);
     // console.log(advertisingDurationChosen);
     // console.log(total);
@@ -165,7 +164,7 @@ const OrderConfirmation = () => {
         email: user,
         total: total,
         printing_options: printingOptionsChosen,
-        type_of_ad: typeOfAdChosen,
+        online_type: onlineType,
         digital_services: digitalServicesChosen,
         advertising_duration: advertisingDurationChosen,
         online_advertising: onlineAdvertisingChosen,
@@ -243,6 +242,7 @@ const OrderConfirmation = () => {
               <Typography>Online Advertising</Typography>
             </AccordionSummary>
             <AccordionDetails>
+              <Typography>Type: {onlineTypeChosen} </Typography>
               <TableContainer component={Paper}>
                 <Table size="small" aria-label="simple table">
                   <TableHead>

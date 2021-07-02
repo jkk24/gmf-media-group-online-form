@@ -28,6 +28,10 @@ const schema = yup.object().shape({
     .array()
     .min(1, "Please select one option.")
     .max(1, "Please choose only one option."),
+  onlineType: yup
+    .array()
+    .min(1, "Please select one option.")
+    .max(1, "Please choose only one option."),
   digitalServices: yup.array().min(1, "Please choose at least one option."),
   user: yup
     .string()
@@ -101,6 +105,8 @@ const Order = () => {
     setUser,
     onlineAdvertising,
     setOnlineAdvertising,
+    onlineType,
+    setOnlineType,
   } = useContext(AppContext);
 
   const [userList, setUserList] = useState([]);
@@ -130,6 +136,7 @@ const Order = () => {
         advertisingDuration: advertisingDuration,
         user: "",
         onlineAdvertising: onlineAdvertising,
+        onlineType: onlineType,
       }}
       validationSchema={schema}
       onSubmit={(values, { setSubmitting }, errors) => {
@@ -143,6 +150,7 @@ const Order = () => {
         setAdvertisingDuration(values.advertisingDuration);
         setUser(values.user);
         setOnlineAdvertising(values.onlineAdvertising);
+        setOnlineType(values.onlineType);
         setConfirming(true);
       }}
     >
@@ -204,6 +212,40 @@ const Order = () => {
             <Card>
               <CardHeader title="Online Advertising" />
               <CardContent>
+                <Card>
+                  <CardHeader title="Type" />
+                  <CardContent>
+                    <Field
+                      component={CheckboxWithLabel}
+                      type="checkbox"
+                      name="onlineType"
+                      value="Flash Banners"
+                      Label={{ label: "Flash Banners" }}
+                    />
+                    <Field
+                      component={CheckboxWithLabel}
+                      type="checkbox"
+                      name="onlineType"
+                      value="Animated GIF Banners"
+                      Label={{ label: "Animated GIF Banners" }}
+                    />
+                    <Field
+                      component={CheckboxWithLabel}
+                      type="checkbox"
+                      name="onlineType"
+                      value="Static Banners"
+                      Label={{ label: "Static Banners" }}
+                    />
+                    <Field
+                      component={CheckboxWithLabel}
+                      type="checkbox"
+                      name="onlineType"
+                      value="Video Ads"
+                      Label={{ label: "Video Ads" }}
+                    />
+                    <FormHelperText>{errors.onlineType}</FormHelperText>
+                  </CardContent>
+                </Card>
                 <TableContainer component={Paper}>
                   <Table size="small" aria-label="simple table">
                     <TableHead>
