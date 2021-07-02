@@ -203,6 +203,11 @@ const OrderConfirmation = () => {
         digital_services: digitalServicesChosen,
         advertising_duration: advertisingDurationChosen,
         online_advertising: onlineAdvertisingChosen,
+        web_design_comments: webDesignCommentsChosen,
+        web_hosting_comments: webHostingCommentsChosen,
+        web_design_total: webDesignTotalChosen,
+        web_hosting_total: webHostingTotalChosen,
+        comments: commentsChosen,
       });
       //console.log(response.data.status);
       if (response.data.status === "success") {

@@ -15,6 +15,11 @@ router.post("/create", async (req, res) => {
     digital_services,
     advertising_duration,
     online_advertising,
+    web_design_comments,
+    web_hosting_comments,
+    web_design_total,
+    web_hosting_total,
+    comments,
   } = req.body;
   try {
     const newOrder = await order.create({
@@ -25,6 +30,11 @@ router.post("/create", async (req, res) => {
       digital_services: digital_services,
       advertising_duration: advertising_duration,
       online_advertising: online_advertising,
+      web_design_comments: web_design_comments,
+      web_hosting_comments: web_hosting_comments,
+      web_design_total: web_design_total,
+      web_hosting_total: web_hosting_total,
+      comments: comments,
     });
     console.log(newOrder);
     res.json({

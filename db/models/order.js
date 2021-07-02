@@ -52,6 +52,23 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: "IN-PROGRESS",
       allowNull: false,
     },
+    web_design_comments: {
+      type: DataTypes.TEXT,
+    },
+    web_hosting_comments: {
+      type: DataTypes.TEXT,
+    },
+    web_design_total: {
+      type: DataTypes.DECIMAL(10, 2),
+      allowNull: false,
+    },
+    web_hosting_total: {
+      type: DataTypes.DECIMAL(10, 2),
+      allowNull: false,
+    },
+    comments: {
+      type: DataTypes.TEXT,
+    },
   });
 
   return order;
