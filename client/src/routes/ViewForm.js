@@ -22,9 +22,9 @@ const ViewForm = () => {
   const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState("");
   const [printingOptions, setPrintingOptions] = useState([]);
-  const [typeOfAd, setTypeOfAd] = useState([]);
   const [digitalServices, setDigitalServices] = useState([]);
   const [advertisingDuration, setAdvertisingDuration] = useState([]);
+  const [onlineAdvertising, setOnlineAdvertising] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -38,9 +38,9 @@ const ViewForm = () => {
           setLoading(false);
           setEmail(response.data.data.email);
           setPrintingOptions(response.data.data.printing_options);
-          setTypeOfAd(response.data.data.type_of_ad);
           setDigitalServices(response.data.data.digital_services);
           setAdvertisingDuration(response.data.data.advertising_duration);
+          setOnlineAdvertising(response.data.data.online_advertising);
         }
       } catch (err) {
         console.log(err);
@@ -102,17 +102,36 @@ const ViewForm = () => {
           <Accordion>
             <AccordionSummary
               expandIcon={<ExpandMoreIcon />}
-              aria-controls="panel2a-content"
-              id="panel2a-header"
+              aria-controls="panel1a-content"
+              id="panel1a-header"
             >
-              <Typography>Type of Ad</Typography>
+              <Typography>Online Advertising</Typography>
             </AccordionSummary>
             <AccordionDetails>
-              {typeOfAd.map((type, index) => (
-                <ol key={index}>
-                  <li>{type}</li>
-                </ol>
-              ))}
+              <TableContainer component={Paper}>
+                <Table size="small" aria-label="simple table">
+                  <TableHead>
+                    <TableRow>
+                      <TableCell>Description</TableCell>
+                      <TableCell>Size</TableCell>
+                      <TableCell>Unit</TableCell>
+                      <TableCell>Number of Months Ordered</TableCell>
+                      <TableCell>Total ($)</TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {onlineAdvertising.map((option, index) => (
+                      <TableRow key={index}>
+                        <TableCell>{option.description}</TableCell>
+                        <TableCell>{option.size}</TableCell>
+                        <TableCell>{option.unit}</TableCell>
+                        <TableCell>{option.monthsOrdered}</TableCell>
+                        <TableCell>{option.total}</TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </TableContainer>
             </AccordionDetails>
           </Accordion>
           <Accordion>
