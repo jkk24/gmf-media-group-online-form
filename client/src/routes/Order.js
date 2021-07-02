@@ -37,6 +37,8 @@ const schema = yup.object().shape({
     .string()
     .email("Please choose a client.")
     .required("Please choose a client."),
+  webDesignTotal: yup.number("Please enter a valid dollar amount."),
+  webHostingTotal: yup.number("Please enter a valid dollar amount."),
 });
 
 function createData(description, print, unit) {
