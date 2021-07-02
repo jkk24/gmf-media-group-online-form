@@ -170,7 +170,7 @@ const OrderConfirmation = () => {
         );
       }
       setTotal(
-        (tempTotal + webDesignTotal + webHostingTotal) *
+        (tempTotal + webDesignTotalChosen + webHostingTotalChosen) *
           tempAdvertisingDurationChosen[0]
       );
       setPrintingOptionsChosen(tempPrintingOptionsChosen);
