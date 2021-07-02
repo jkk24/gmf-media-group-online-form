@@ -145,7 +145,7 @@ const Order = () => {
               </CardContent>
             </Card>
             <Card>
-              <CardHeader title="Printing Options" />
+              <CardHeader title="Print Advertising" />
               <CardContent>
                 <TableContainer component={Paper}>
                   <Table size="small" aria-label="simple table">
