@@ -20,18 +20,14 @@ const TopNavbar = () => {
     <>
       <Navbar bg="light" variant="light" sticky="top" className="mx-auto">
         <Navbar.Brand href="/">Advertising Sales Agreement</Navbar.Brand>
-        <Nav className="mx-auto">
-          <Nav.Link href="#TODO">Contact Us (TODO)</Nav.Link>
-        </Nav>
+        <Nav className="mx-auto"></Nav>
         <Button onClick={handleSubmit}>Logout</Button>
       </Navbar>
     </>
   ) : (
     <Navbar bg="light" variant="light" sticky="top" className="mx-auto">
       <Navbar.Brand href="/">Advertising Sales Agreement</Navbar.Brand>
-      <Nav className="mx-auto">
-        <Nav.Link href="#TODO">Contact Us (TODO)</Nav.Link>
-      </Nav>
+      <Nav className="mx-auto"></Nav>
     </Navbar>
   );
 };
