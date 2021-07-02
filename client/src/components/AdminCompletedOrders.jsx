@@ -51,7 +51,7 @@ const AdminCompletedOrders = () => {
               <tr key={index}>
                 <td>{index}</td>
                 <td>{order.email}</td>
-                <td>{order.order_id}</td>
+                <td>{order.order_number}</td>
                 <td>{formatDT(order.createdAt)}</td>
                 <td>{formatDT(order.updatedAt)}</td>
                 <td>{order.total}</td>

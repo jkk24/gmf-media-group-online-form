@@ -69,6 +69,14 @@ module.exports = (sequelize, DataTypes) => {
     comments: {
       type: DataTypes.TEXT,
     },
+    order_number: {
+      type: DataTypes.INTEGER,
+      autoIncrement: true,
+      allowNull: false,
+      unique: {
+        args: true,
+      },
+    },
   });
 
   return order;

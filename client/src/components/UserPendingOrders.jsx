@@ -109,7 +109,7 @@ const UserPendingOrders = () => {
                 <tr key={index}>
                   <td>{index}</td>
                   {element}
-                  <td>{order.order_id}</td>
+                  <td>{order.order_number}</td>
                   <td>{formatDT(order.createdAt)}</td>
                   <td>{order.total}</td>
                   <td>
