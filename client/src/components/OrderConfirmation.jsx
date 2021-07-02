@@ -169,7 +169,10 @@ const OrderConfirmation = () => {
           "You did not select an advertising Duration."
         );
       }
-      setTotal(tempTotal * tempAdvertisingDurationChosen[0]);
+      setTotal(
+        (tempTotal + webDesignTotal + webHostingTotal) *
+          tempAdvertisingDurationChosen[0]
+      );
       setPrintingOptionsChosen(tempPrintingOptionsChosen);
       setOnlineAdvertisingChosen(tempOnlineAdvertisingChosen);
       setOnlineTypeChosen(tempOnlineTypeChosen);
