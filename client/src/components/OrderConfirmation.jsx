@@ -190,6 +190,7 @@ const OrderConfirmation = () => {
     webDesignTotal,
     webHostingComments,
     webHostingTotal,
+    comments,
   ]);
 
   const handleSubmit = async (e) => {

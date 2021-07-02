@@ -26,6 +26,11 @@ const ViewForm = () => {
   const [advertisingDuration, setAdvertisingDuration] = useState([]);
   const [onlineAdvertising, setOnlineAdvertising] = useState([]);
   const [onlineType, setOnlineType] = useState([]);
+  const [comments, setComments] = useState("");
+  const [webDesignComments, setWebDesignComments] = useState("");
+  const [webHostingComments, setWebHostingComments] = useState("");
+  const [webDesignTotal, setWebDesignTotal] = useState(null);
+  const [webHostingTotal, setWebHostingTotal] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -43,6 +48,11 @@ const ViewForm = () => {
           setAdvertisingDuration(response.data.data.advertising_duration);
           setOnlineType(response.data.data.online_type);
           setOnlineAdvertising(response.data.data.online_advertising);
+          setComments(response.data.data.comments);
+          setWebDesignComments(response.data.data.web_design_comments);
+          setWebHostingComments(response.data.data.web_hosting_comments);
+          setWebDesignTotal(response.data.data.web_design_total);
+          setWebHostingTotal(response.data.data.web_hosting_total);
         }
       } catch (err) {
         console.log(err);
@@ -146,11 +156,29 @@ const ViewForm = () => {
               <Typography>Digital Services</Typography>
             </AccordionSummary>
             <AccordionDetails>
-              {digitalServices.map((service, index) => (
-                <ol key={index}>
-                  <li>{service}</li>
-                </ol>
-              ))}
+              <Container>
+                {digitalServices.map((service, index) => (
+                  <ol key={index}>
+                    <li>{service}</li>
+                  </ol>
+                ))}
+                <Typography variant="h6" gutterBottom>
+                  Web Design Comments:
+                </Typography>
+                <Typography gutterBottom>{webDesignComments}</Typography>
+                <Typography variant="h6" gutterBottom>
+                  Web Design Total ($):
+                </Typography>
+                <Typography gutterBottom>{webDesignTotal}</Typography>
+                <Typography variant="h6" gutterBottom>
+                  Web Hosting Comments:
+                </Typography>
+                <Typography gutterBottom>{webHostingComments}</Typography>
+                <Typography variant="h6" gutterBottom>
+                  Web Hosting Total ($):
+                </Typography>
+                <Typography gutterBottom>{webHostingTotal}</Typography>
+              </Container>
             </AccordionDetails>
           </Accordion>
           <Accordion>
@@ -162,6 +190,20 @@ const ViewForm = () => {
               <Typography>Advertising Duration</Typography>
             </AccordionSummary>
             <AccordionDetails>{advertisingDuration[0]} Issues</AccordionDetails>
+          </Accordion>
+          <Accordion>
+            <AccordionSummary
+              expandIcon={<ExpandMoreIcon />}
+              aria-controls="panel2a-content"
+              id="panel2a-header"
+            >
+              <Typography>Additional Comments</Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              <Container>
+                <Typography gutterBottom>{comments}</Typography>
+              </Container>
+            </AccordionDetails>
           </Accordion>
         </CardContent>
       </Card>
