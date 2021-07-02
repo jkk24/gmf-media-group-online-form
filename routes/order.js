@@ -135,6 +135,22 @@ router.post("/complete", async (req, res) => {
   }
 });
 
+router.post("/approve", async (req, res) => {
+  try {
+    const orderResult = await order.update(
+      { user_approval: "true" },
+      { where: { order_id: req.body.order_id }, raw: true }
+    );
+    res.status(200).json({
+      status: "success",
+    });
+  } catch (err) {
+    // console.log(req.body);
+    console.log(err);
+    // console.log("THERE IS AN ERROR!");
+  }
+});
+
 router.post("/getOrderDetails", async (req, res) => {
   try {
     const result = await order.findOne({
