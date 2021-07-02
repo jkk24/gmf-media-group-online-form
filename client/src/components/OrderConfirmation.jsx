@@ -19,6 +19,21 @@ import OrderAPI from "../apis/OrderAPI";
 import { AppContext } from "../context/AppContext";
 import { useHistory } from "react-router-dom";
 
+function createOnlineData(description, size, unit, monthsOrdered, total) {
+  return { description, size, unit, monthsOrdered, total };
+}
+
+const onlineRows = [
+  createOnlineData("Leaderboard", "728 x 90", "$0.00"),
+  createOnlineData("Billboard", "970 x 250", "$0.00"),
+  createOnlineData("Medium Banner", "300 x 250", "$0.00"),
+  createOnlineData("Wide Skyscraper", "160 x 600", "$0.00"),
+  createOnlineData("Learge Leaderboard", "970 x 90", "$0.00"),
+  createOnlineData("Square", "728 x 90", "$0.00"),
+  createOnlineData("Small Square", "250 x 250", "$0.00"),
+  createOnlineData("Skyscraper", "120 x 600", "$0.00"),
+];
+
 function createData(description, print, unit, unitsOrdered, total) {
   return { description, print, unit, unitsOrdered, total };
 }
@@ -41,6 +56,7 @@ const unit = [
   3290.44, 2141.3, 1922.8, 1857.25, 1857.25, 1775.53, 1075.92, 1142.81, 662.4,
   1007.4, 322.0, 259.33,
 ];
+const onlineUnit = [0, 0, 0, 0, 0, 0, 0, 0];
 
 const OrderConfirmation = () => {
   let history = useHistory();
@@ -51,6 +67,7 @@ const OrderConfirmation = () => {
     digitalServices,
     advertisingDuration,
     user,
+    onlineAdvertising,
   } = useContext(AppContext);
   const [printingOptionsChosen, setPrintingOptionsChosen] = useState([]);
   const [typeOfAdChosen, setTypeOfAdChosen] = useState([]);
@@ -58,11 +75,13 @@ const OrderConfirmation = () => {
   const [advertisingDurationChosen, setAdvertisingDurationChosen] = useState(
     []
   );
+  const [onlineAdvertisingChosen, setOnlineAdvertisingChosen] = useState([]);
   const [total, setTotal] = useState(null);
 
   useEffect(() => {
     const fetchData = () => {
       var tempPrintingOptionsChosen = [];
+      var tempOnlineAdvertisingChosen = [];
       var tempTypeOfAdChosen = [];
       var tempDigitalServicesChosen = [];
       var tempAdvertisingDurationChosen = [];
@@ -79,6 +98,19 @@ const OrderConfirmation = () => {
             )
           );
           tempTotal = tempTotal + printingOptions[i] * unit[i];
+        }
+      }
+      for (var m = 0; m < onlineAdvertising.length; m++) {
+        if (onlineAdvertising[m] > 0) {
+          tempOnlineAdvertisingChosen.push(
+            createOnlineData(
+              onlineRows[m].description,
+              onlineRows[m].size,
+              onlineRows[m].unit,
+              onlineAdvertising[m],
+              onlineAdvertising[m] * onlineUnit[m]
+            )
+          );
         }
       }
       if (typeOfAd.length > 0) {
@@ -108,12 +140,19 @@ const OrderConfirmation = () => {
       }
       setTotal(tempTotal * tempAdvertisingDurationChosen[0]);
       setPrintingOptionsChosen(tempPrintingOptionsChosen);
+      setOnlineAdvertisingChosen(tempOnlineAdvertisingChosen);
       setTypeOfAdChosen(tempTypeOfAdChosen);
       setDigitalServicesChosen(tempDigitalServicesChosen);
       setAdvertisingDurationChosen(tempAdvertisingDurationChosen);
     };
     fetchData();
-  }, [printingOptions, typeOfAd, digitalServices, advertisingDuration]);
+  }, [
+    printingOptions,
+    typeOfAd,
+    digitalServices,
+    advertisingDuration,
+    onlineAdvertising,
+  ]);
 
   const handleSubmit = async (e) => {
     // console.log(printingOptionsChosen);
@@ -197,15 +236,36 @@ const OrderConfirmation = () => {
           <Accordion>
             <AccordionSummary
               expandIcon={<ExpandMoreIcon />}
-              aria-controls="panel2a-content"
-              id="panel2a-header"
+              aria-controls="panel1a-content"
+              id="panel1a-header"
             >
-              <Typography>Type of Ad</Typography>
+              <Typography>Print Advertising</Typography>
             </AccordionSummary>
             <AccordionDetails>
-              {typeOfAdChosen.map((type, index) => (
-                <Typography key={index}>{type}</Typography>
-              ))}
+              <TableContainer component={Paper}>
+                <Table size="small" aria-label="simple table">
+                  <TableHead>
+                    <TableRow>
+                      <TableCell>Description</TableCell>
+                      <TableCell>Size</TableCell>
+                      <TableCell>Unit</TableCell>
+                      <TableCell>Number of Months Ordered</TableCell>
+                      <TableCell>Total ($)</TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {onlineAdvertisingChosen.map((option, index) => (
+                      <TableRow key={index}>
+                        <TableCell>{option.description}</TableCell>
+                        <TableCell>{option.size}</TableCell>
+                        <TableCell>{option.unit}</TableCell>
+                        <TableCell>{option.monthsOrdered}</TableCell>
+                        <TableCell>{option.total}</TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </TableContainer>
             </AccordionDetails>
           </Accordion>
           <Accordion>

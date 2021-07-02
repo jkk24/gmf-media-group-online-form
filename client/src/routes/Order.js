@@ -29,7 +29,6 @@ const schema = yup.object().shape({
     .min(1, "Please select one option.")
     .max(1, "Please choose only one option."),
   digitalServices: yup.array().min(1, "Please choose at least one option."),
-  typeOfAd: yup.array().min(1, "Please choose at least one option."),
   user: yup
     .string()
     .email("Please choose a client.")
@@ -39,6 +38,21 @@ const schema = yup.object().shape({
 function createData(description, print, unit) {
   return { description, print, unit };
 }
+
+function createOnlineData(description, size, unit) {
+  return { description, size, unit };
+}
+
+const onlineRows = [
+  createOnlineData("Leaderboard", "728 x 90", "$0.00"),
+  createOnlineData("Billboard", "970 x 250", "$0.00"),
+  createOnlineData("Medium Banner", "300 x 250", "$0.00"),
+  createOnlineData("Wide Skyscraper", "160 x 600", "$0.00"),
+  createOnlineData("Learge Leaderboard", "970 x 90", "$0.00"),
+  createOnlineData("Square", "728 x 90", "$0.00"),
+  createOnlineData("Small Square", "250 x 250", "$0.00"),
+  createOnlineData("Skyscraper", "120 x 600", "$0.00"),
+];
 
 const rows = [
   createData("2-Page Spread", '16.50" x 10.75"', "$3,290.44"),
@@ -85,6 +99,8 @@ const Order = () => {
     advertisingDuration,
     setAdvertisingDuration,
     setUser,
+    onlineAdvertising,
+    setOnlineAdvertising,
   } = useContext(AppContext);
 
   const [userList, setUserList] = useState([]);
@@ -113,6 +129,7 @@ const Order = () => {
         digitalServices: digitalServices,
         advertisingDuration: advertisingDuration,
         user: "",
+        onlineAdvertising: onlineAdvertising,
       }}
       validationSchema={schema}
       onSubmit={(values, { setSubmitting }, errors) => {
@@ -125,6 +142,7 @@ const Order = () => {
         setDigitalServices(values.digitalServices);
         setAdvertisingDuration(values.advertisingDuration);
         setUser(values.user);
+        setOnlineAdvertising(values.onlineAdvertising);
         setConfirming(true);
       }}
     >
@@ -144,6 +162,7 @@ const Order = () => {
                 <FormHelperText>{errors.user}</FormHelperText>
               </CardContent>
             </Card>
+            <h1>Type of Ad</h1>
             <Card>
               <CardHeader title="Print Advertising" />
               <CardContent>
@@ -182,6 +201,44 @@ const Order = () => {
               </CardContent>
             </Card>
             <Card>
+              <CardHeader title="Online Advertising" />
+              <CardContent>
+                <TableContainer component={Paper}>
+                  <Table size="small" aria-label="simple table">
+                    <TableHead>
+                      <TableRow>
+                        <TableCell>Description</TableCell>
+                        <TableCell>Size</TableCell>
+                        <TableCell>Unit</TableCell>
+                        <TableCell>Number of Months</TableCell>
+                      </TableRow>
+                    </TableHead>
+                    <TableBody>
+                      {onlineRows.map((onlineRow, index) => (
+                        <TableRow key={index}>
+                          <TableCell>{onlineRow.description}</TableCell>
+                          <TableCell>{onlineRow.size}</TableCell>
+                          <TableCell>{onlineRow.unit}</TableCell>
+                          <TableCell>
+                            <Field
+                              component={Select}
+                              name={`onlineAdvertising.${index}`}
+                            >
+                              <MenuItem value={0}>0</MenuItem>
+                              <MenuItem value={3}>3</MenuItem>
+                              <MenuItem value={6}>6</MenuItem>
+                              <MenuItem value={9}>9</MenuItem>
+                              <MenuItem value={12}>12</MenuItem>
+                            </Field>
+                          </TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                </TableContainer>
+              </CardContent>
+            </Card>
+            {/* <Card>
               <CardHeader title="Type of AD" />
               <CardContent>
                 <Field
@@ -207,7 +264,7 @@ const Order = () => {
                 />
                 <FormHelperText>{errors.typeOfAd}</FormHelperText>
               </CardContent>
-            </Card>
+            </Card> */}
             <Card>
               <CardHeader title="Digital Services" />
               <CardContent>
