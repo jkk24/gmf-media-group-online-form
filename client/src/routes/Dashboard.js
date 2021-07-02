@@ -14,7 +14,7 @@ const Dashboard = () => {
   const handleSubmit = () => {
     history.push("/newOrder");
   };
-  return role === "admin" ? (
+  return role === "user" ? (
     <Container>
       <h1>Admin Dashboard</h1>
       <div>
