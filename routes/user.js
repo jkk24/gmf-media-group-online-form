@@ -191,6 +191,24 @@ router.get("/getAllUsers", async (req, res) => {
   }
 });
 
+router.post("/getClient", async (req, res) => {
+  try {
+    const getAllUsers = await user.findOne({
+      where: {
+        email: req.body.email,
+      },
+      raw: true,
+    });
+    // console.log(getAllUsers);
+    res.status(200).json({
+      status: "success",
+      data: getAllUsers,
+    });
+  } catch (err) {
+    console.error(err.message);
+  }
+});
+
 router.post("/approve", async (req, res) => {
   try {
     const userResult = await user.update(
