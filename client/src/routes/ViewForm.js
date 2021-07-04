@@ -16,6 +16,9 @@ import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import OrderAPI from "../apis/OrderAPI";
 import { useParams } from "react-router-dom";
+import RightLogo from "../components/RightLogo.png";
+import MiddleLogo from "../components/MiddleLogo.png";
+import LeftLogo from "../components/LeftLogo.png";
 
 const ViewForm = () => {
   const { order_id } = useParams();
@@ -63,6 +66,9 @@ const ViewForm = () => {
   //return <h1>TESTING</h1>;
   return loading === false ? (
     <Container>
+      <img src={LeftLogo} alt="logo" />
+      <img src={MiddleLogo} alt="logo" />
+      <img src={RightLogo} alt="logo" />
       <h1>(TODO: Convert Details Into Form)</h1>
       <Card>
         <CardContent>
