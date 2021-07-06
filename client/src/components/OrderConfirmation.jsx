@@ -19,6 +19,26 @@ import OrderAPI from "../apis/OrderAPI";
 import { AppContext } from "../context/AppContext";
 import { useHistory } from "react-router-dom";
 
+function createDigitalService(description, total) {
+  return { description, total };
+}
+
+const DigitalServicesList = [
+  // "Web Design",
+  // "Web Hosting",
+  "SEO",
+  "Local SEO",
+  "Content Marketing",
+  "Email Marketing",
+  "Email Automation",
+  "Featured News",
+  "PPC",
+  "Ad Words",
+  "Video",
+  "Link Building",
+  "Branding",
+];
+
 function createOnlineData(description, size, unit, monthsOrdered, total) {
   return { description, size, unit, monthsOrdered, total };
 }
@@ -148,21 +168,19 @@ const OrderConfirmation = () => {
           );
         }
       }
+      for (var k = 0; k < digitalServices.length; k++) {
+        if (digitalServices[k] > 0) {
+          tempDigitalServicesChosen.push(
+            createDigitalService(DigitalServicesList[k], digitalServices[k])
+          );
+        }
+      }
       if (onlineType.length > 0) {
         for (var j = 0; j < onlineType.length; j++) {
           tempOnlineTypeChosen.push(onlineType[j]);
         }
       } else {
         tempOnlineTypeChosen.push("You did not select any specific ad type.");
-      }
-      if (digitalServices.length > 0) {
-        for (var k = 0; k < digitalServices.length; k++) {
-          tempDigitalServicesChosen.push(digitalServices[k]);
-        }
-      } else {
-        tempDigitalServicesChosen.push(
-          "You did not select any digital services."
-        );
       }
       if (advertisingDuration.length > 0) {
         for (var l = 0; l < advertisingDuration.length; l++) {
@@ -177,7 +195,7 @@ const OrderConfirmation = () => {
         (tempTotal + tempDesignTotal + tempHostingTotal) *
           tempAdvertisingDurationChosen[0]
       );
-      console.log(tempHostingTotal + tempDesignTotal);
+      console.log(tempDigitalServicesChosen);
       setPrintingOptionsChosen(tempPrintingOptionsChosen);
       setOnlineAdvertisingChosen(tempOnlineAdvertisingChosen);
       setOnlineTypeChosen(tempOnlineTypeChosen);
@@ -327,12 +345,25 @@ const OrderConfirmation = () => {
               <Typography>Digital Services</Typography>
             </AccordionSummary>
             <AccordionDetails>
+              <TableContainer component={Paper}>
+                <Table size="small" aria-label="simple table">
+                  <TableHead>
+                    <TableRow>
+                      <TableCell>Description</TableCell>
+                      <TableCell>Total ($)</TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {digitalServicesChosen.map((service, index) => (
+                      <TableRow key={index}>
+                        <TableCell>{service.description}</TableCell>
+                        <TableCell>{service.total}</TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </TableContainer>
               <Container>
-                {digitalServicesChosen.map((service, index) => (
-                  <ol key={index}>
-                    <li>{service}</li>
-                  </ol>
-                ))}
                 <Typography variant="h6" gutterBottom>
                   Web Design Comments:
                 </Typography>

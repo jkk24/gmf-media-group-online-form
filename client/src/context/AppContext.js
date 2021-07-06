@@ -11,7 +11,9 @@ export const AppContextProvider = (props) => {
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
   ]);
   const [typeOfAd, setTypeOfAd] = useState([]);
-  const [digitalServices, setDigitalServices] = useState([]);
+  const [digitalServices, setDigitalServices] = useState([
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+  ]);
   const [advertisingDuration, setAdvertisingDuration] = useState([]);
   const [user, setUser] = useState(null);
   const [onlineAdvertising, setOnlineAdvertising] = useState([

@@ -32,7 +32,9 @@ const schema = yup.object().shape({
     .array()
     .min(1, "Please select one option.")
     .max(1, "Please choose only one option."),
-  digitalServices: yup.array().min(1, "Please choose at least one option."),
+  digitalServicesChecked: yup
+    .array()
+    .min(1, "Please choose at least one option."),
   user: yup
     .string()
     .email("Please choose a client.")
@@ -143,6 +145,7 @@ const Order = () => {
       initialValues={{
         printingOptions: printingOptions,
         // typeOfAd: typeOfAd,
+        digitalServicesChecked: [],
         digitalServices: digitalServices,
         advertisingDuration: advertisingDuration,
         user: "",
@@ -301,47 +304,44 @@ const Order = () => {
                 </TableContainer>
               </CardContent>
             </Card>
-            {/* <Card>
-              <CardHeader title="Type of AD" />
-              <CardContent>
-                <Field
-                  component={CheckboxWithLabel}
-                  type="checkbox"
-                  name="typeOfAd"
-                  value="display"
-                  Label={{ label: "DISPLAY" }}
-                />
-                <Field
-                  component={CheckboxWithLabel}
-                  type="checkbox"
-                  name="typeOfAd"
-                  value="classified"
-                  Label={{ label: "CLASSIFIED" }}
-                />
-                <Field
-                  component={CheckboxWithLabel}
-                  type="checkbox"
-                  name="typeOfAd"
-                  value="banner"
-                  Label={{ label: "BANNER" }}
-                />
-                <FormHelperText>{errors.typeOfAd}</FormHelperText>
-              </CardContent>
-            </Card> */}
             <Card>
               <CardHeader title="Digital Services" />
               <CardContent>
-                {DigitalServices.map((service, index) => (
-                  <Field
-                    key={index}
-                    component={CheckboxWithLabel}
-                    type="checkbox"
-                    name="digitalServices"
-                    value={service}
-                    Label={{ label: service }}
-                  />
-                ))}
-                <FormHelperText>{errors.digitalServices}</FormHelperText>
+                <TableContainer component={Paper}>
+                  <Table size="small" aria-label="simple table">
+                    <TableHead>
+                      <TableRow>
+                        <TableCell>Description</TableCell>
+                        <TableCell>Price</TableCell>
+                      </TableRow>
+                    </TableHead>
+                    <TableBody>
+                      {DigitalServices.map((service, index) => (
+                        <TableRow key={index}>
+                          <TableCell>
+                            <Field
+                              key={index}
+                              component={CheckboxWithLabel}
+                              type="checkbox"
+                              name="digitalServicesChecked"
+                              value={service}
+                              Label={{ label: service }}
+                            />
+                          </TableCell>
+                          <TableCell>
+                            <Field
+                              component={TextField}
+                              name={`digitalServices.${index}`}
+                              id={`digitalServices.${index}`}
+                              label="Total ($)"
+                            />
+                          </TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                </TableContainer>
+                <FormHelperText>{errors.digitalServicesChecked}</FormHelperText>
                 <Card>
                   <CardContent>
                     <Field
