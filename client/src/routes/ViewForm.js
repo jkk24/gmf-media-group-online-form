@@ -241,9 +241,11 @@ const ViewForm = () => {
         <br />
         <Grid container justify="space-between" alignItems="center">
           <Box width="50%">
-            <Box>Additional Comments: {comments}</Box>
+            <Typography style={{ wordWrap: "break-word" }}>
+              Additional Comments: {comments}
+            </Typography>
           </Box>
-          <Box width="50%">
+          <Box width="25%">
             <Box>Sub Total: ${total / advertisingDuration}</Box>
             <Box>Advertising Duration: {advertisingDuration}x Issues</Box>
             <Box>Total: ${total}</Box>
