@@ -117,9 +117,11 @@ const OrderConfirmation = () => {
       var tempOnlineTypeChosen = [];
       var tempDigitalServicesChosen = [];
       var tempAdvertisingDurationChosen = [];
-      var tempTotal = 0;
       var tempDesignTotal = 0;
       var tempHostingTotal = 0;
+      var tempPrintingOptionsTotal = 0;
+      var tempOnlineTotals = 0;
+      var tempDigitalServicesTotal = 0;
       if (comments.length > 0) {
         setCommentsChosen(comments);
       } else {
@@ -152,7 +154,8 @@ const OrderConfirmation = () => {
               printingOptions[i] * unit[i]
             )
           );
-          tempTotal = tempTotal + parseFloat(printingOptions[i]) * unit[i];
+          tempPrintingOptionsTotal =
+            tempPrintingOptionsTotal + parseFloat(printingOptions[i]) * unit[i];
         }
       }
       for (var m = 0; m < onlineAdvertising.length; m++) {
@@ -166,6 +169,9 @@ const OrderConfirmation = () => {
               onlineAdvertising[m] * onlineUnit[m]
             )
           );
+          tempOnlineTotals =
+            tempOnlineTotals + parseFloat(onlineAdvertising[m]) * onlineUnit[m];
+          console.log(onlineAdvertising[m]);
         }
       }
       for (var k = 0; k < digitalServices.length; k++) {
@@ -173,6 +179,8 @@ const OrderConfirmation = () => {
           tempDigitalServicesChosen.push(
             createDigitalService(DigitalServicesList[k], digitalServices[k])
           );
+          tempDigitalServicesTotal =
+            tempDigitalServicesTotal + parseFloat(digitalServices[k]);
         }
       }
       if (onlineType.length > 0) {
@@ -192,10 +200,13 @@ const OrderConfirmation = () => {
         );
       }
       setTotal(
-        (tempTotal + tempDesignTotal + tempHostingTotal) *
+        (tempPrintingOptionsTotal +
+          tempOnlineTotals +
+          tempDigitalServicesTotal +
+          tempDesignTotal +
+          tempHostingTotal) *
           tempAdvertisingDurationChosen[0]
       );
-      console.log(tempDigitalServicesChosen);
       setPrintingOptionsChosen(tempPrintingOptionsChosen);
       setOnlineAdvertisingChosen(tempOnlineAdvertisingChosen);
       setOnlineTypeChosen(tempOnlineTypeChosen);

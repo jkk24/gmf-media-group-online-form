@@ -159,9 +159,8 @@ const Order = () => {
       }}
       validationSchema={schema}
       onSubmit={(values, { setSubmitting }, errors) => {
-        console.log(values.webDesignComments);
         console.log(values.webDesignTotal);
-        console.log(values.webHostingComments);
+        console.log(values.webHostingTotal);
         setPrintingOptions(values.printingOptions);
         // setTypeOfAd(values.typeOfAd);
         setDigitalServices(values.digitalServices);
