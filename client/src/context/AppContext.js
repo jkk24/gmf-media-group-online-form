@@ -20,8 +20,8 @@ export const AppContextProvider = (props) => {
   const [onlineType, setOnlineType] = useState([]);
   const [webDesignComments, setWebDesignComments] = useState("");
   const [webHostingComments, setWebHostingComments] = useState("");
-  const [webDesignTotal, setWebDesignTotal] = useState(null);
-  const [webHostingTotal, setWebHostingTotal] = useState(null);
+  const [webDesignTotal, setWebDesignTotal] = useState(0);
+  const [webHostingTotal, setWebHostingTotal] = useState(0);
   const [comments, setComments] = useState("");
 
   return (

@@ -76,8 +76,8 @@ const rows = [
 ];
 
 const DigitalServices = [
-  "Web Design",
-  "Web Hosting",
+  // "Web Design",
+  // "Web Hosting",
   "SEO",
   "Local SEO",
   "Content Marketing",
