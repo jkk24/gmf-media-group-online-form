@@ -123,7 +123,7 @@ const ViewForm = () => {
             p={1}
             // textAlign="center"
             // fontWeight="bold"
-            fontSize="25px"
+            fontSize="15px"
           >
             PRINT ADVERTISING
           </Box>
@@ -158,7 +158,7 @@ const ViewForm = () => {
               p={1}
               // textAlign="center"
               // fontWeight="bold"
-              fontSize="25px"
+              fontSize="15px"
             >
               ONLINE ADVERTISING
             </Box>
@@ -190,7 +190,7 @@ const ViewForm = () => {
               p={1}
               // textAlign="center"
               // fontWeight="bold"
-              fontSize="25px"
+              fontSize="15px"
             >
               DIGITAL SERVICES
             </Box>
@@ -207,11 +207,11 @@ const ViewForm = () => {
               <TableBody>
                 {digitalServices.map((service, index) => (
                   <TableRow key={index}>
-                    <TableCell>{service}</TableCell>
-                    <TableCell>{service}</TableCell>
-                    <TableCell>$0.00</TableCell>
+                    <TableCell>{service.description}</TableCell>
+                    <TableCell>{service.description}</TableCell>
+                    <TableCell>${service.total}</TableCell>
                     <TableCell>1</TableCell>
-                    <TableCell>$0</TableCell>
+                    <TableCell>${service.total}</TableCell>
                   </TableRow>
                 ))}
               </TableBody>
@@ -240,161 +240,16 @@ const ViewForm = () => {
         <br />
         <br />
         <Grid container justify="space-between" alignItems="center">
-          <Box>
+          <Box width="50%">
             <Box>Additional Comments: {comments}</Box>
-            <br />
-            <Box>Signature:</Box>
           </Box>
-          <Box>
+          <Box width="50%">
             <Box>Sub Total: ${total / advertisingDuration}</Box>
             <Box>Advertising Duration: {advertisingDuration}x Issues</Box>
             <Box>Total: ${total}</Box>
           </Box>
         </Grid>
       </Grid>
-      {/* <Card>
-        <CardContent>
-          <Accordion>
-            <AccordionSummary
-              expandIcon={<ExpandMoreIcon />}
-              aria-controls="panel2a-content"
-              id="panel2a-header"
-            >
-              <Typography>Client</Typography>
-            </AccordionSummary>
-            <AccordionDetails>{email}</AccordionDetails>
-          </Accordion>
-          <Accordion>
-            <AccordionSummary
-              expandIcon={<ExpandMoreIcon />}
-              aria-controls="panel1a-content"
-              id="panel1a-header"
-            >
-              <Typography>Print Advertising</Typography>
-            </AccordionSummary>
-            <AccordionDetails>
-              <TableContainer component={Paper}>
-                <Table size="small" aria-label="simple table">
-                  <TableHead>
-                    <TableRow>
-                      <TableCell>Description</TableCell>
-                      <TableCell>Print</TableCell>
-                      <TableCell>Unit</TableCell>
-                      <TableCell>Number of Units Ordered</TableCell>
-                      <TableCell>Total ($)</TableCell>
-                    </TableRow>
-                  </TableHead>
-                  <TableBody>
-                    {printingOptions.map((option, index) => (
-                      <TableRow key={index}>
-                        <TableCell>{option.description}</TableCell>
-                        <TableCell>{option.print}</TableCell>
-                        <TableCell>{option.unit}</TableCell>
-                        <TableCell>{option.unitsOrdered}</TableCell>
-                        <TableCell>{option.total}</TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              </TableContainer>
-            </AccordionDetails>
-          </Accordion>
-          <Accordion>
-            <AccordionSummary
-              expandIcon={<ExpandMoreIcon />}
-              aria-controls="panel1a-content"
-              id="panel1a-header"
-            >
-              <Typography>Online Advertising</Typography>
-            </AccordionSummary>
-            <AccordionDetails>
-              <h1>{onlineType[0]}</h1>
-              <TableContainer component={Paper}>
-                <Table size="small" aria-label="simple table">
-                  <TableHead>
-                    <TableRow>
-                      <TableCell>Description</TableCell>
-                      <TableCell>Size</TableCell>
-                      <TableCell>Unit</TableCell>
-                      <TableCell>Number of Months Ordered</TableCell>
-                      <TableCell>Total ($)</TableCell>
-                    </TableRow>
-                  </TableHead>
-                  <TableBody>
-                    {onlineAdvertising.map((option, index) => (
-                      <TableRow key={index}>
-                        <TableCell>{option.description}</TableCell>
-                        <TableCell>{option.size}</TableCell>
-                        <TableCell>{option.unit}</TableCell>
-                        <TableCell>{option.monthsOrdered}</TableCell>
-                        <TableCell>{option.total}</TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              </TableContainer>
-            </AccordionDetails>
-          </Accordion>
-          <Accordion>
-            <AccordionSummary
-              expandIcon={<ExpandMoreIcon />}
-              aria-controls="panel2a-content"
-              id="panel2a-header"
-            >
-              <Typography>Digital Services</Typography>
-            </AccordionSummary>
-            <AccordionDetails>
-              <Container>
-                {digitalServices.map((service, index) => (
-                  <ol key={index}>
-                    <li>{service}</li>
-                  </ol>
-                ))}
-                <Typography variant="h6" gutterBottom>
-                  Web Design Comments:
-                </Typography>
-                <Typography gutterBottom>{webDesignComments}</Typography>
-                <Typography variant="h6" gutterBottom>
-                  Web Design Total ($):
-                </Typography>
-                <Typography gutterBottom>{webDesignTotal}</Typography>
-                <Typography variant="h6" gutterBottom>
-                  Web Hosting Comments:
-                </Typography>
-                <Typography gutterBottom>{webHostingComments}</Typography>
-                <Typography variant="h6" gutterBottom>
-                  Web Hosting Total ($):
-                </Typography>
-                <Typography gutterBottom>{webHostingTotal}</Typography>
-              </Container>
-            </AccordionDetails>
-          </Accordion>
-          <Accordion>
-            <AccordionSummary
-              expandIcon={<ExpandMoreIcon />}
-              aria-controls="panel2a-content"
-              id="panel2a-header"
-            >
-              <Typography>Advertising Duration</Typography>
-            </AccordionSummary>
-            <AccordionDetails>{advertisingDuration[0]} Issues</AccordionDetails>
-          </Accordion>
-          <Accordion>
-            <AccordionSummary
-              expandIcon={<ExpandMoreIcon />}
-              aria-controls="panel2a-content"
-              id="panel2a-header"
-            >
-              <Typography>Additional Comments</Typography>
-            </AccordionSummary>
-            <AccordionDetails>
-              <Container>
-                <Typography gutterBottom>{comments}</Typography>
-              </Container>
-            </AccordionDetails>
-          </Accordion>
-        </CardContent>
-      </Card>*/}
     </Container>
   ) : (
     <h1>Loading...</h1>
