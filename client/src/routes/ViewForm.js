@@ -118,7 +118,7 @@ const ViewForm = () => {
         </Grid>
         <Grid>
           <Box
-            bgcolor="black"
+            bgcolor="#0161ab"
             color="primary.contrastText"
             p={1}
             // textAlign="center"
@@ -153,7 +153,7 @@ const ViewForm = () => {
               </TableBody>
             </Table>
             <Box
-              bgcolor="black"
+              bgcolor="#0161ab"
               color="primary.contrastText"
               p={1}
               // textAlign="center"
@@ -185,7 +185,7 @@ const ViewForm = () => {
               </TableBody>
             </Table>
             <Box
-              bgcolor="black"
+              bgcolor="#0161ab"
               color="primary.contrastText"
               p={1}
               // textAlign="center"
